@@ -1,0 +1,11 @@
+da.txt
+
+    da <- e
+
+    @include <-=../e.txt=
+
+    da <- a
+
+    @include <-=../a.txt=
+
+da.end
