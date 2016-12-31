@@ -18,7 +18,6 @@
 
     "@@include <-=path=" »á±ä³É "@include <-=path="
     "%%include <-=path=" »á±ä³É "%include <-=path="
-    %%include <-=path=" »á±ä³É "%include <-=path=
 
     //  path ¿ÉÒÔÊÇ¾ø¶ÔÂ·¾¶£¬±ÈÈç£º
     //
@@ -37,25 +36,6 @@
 Ê¹ÓÃÊµÀý¼û
 [`tutorial_cat.jar_.md`](tutorial_cat.jar_.md) ºÍ
 [`tutorial_cat.pl_.md`](tutorial_cat.pl_.md)¡£
-
-```git-diff
-[1mdiff --git a/result_cat.pl_.txt b/result_cat.jar_.txt[m
-[1mindex cd55ec1..ae92653 100644[m
-[1m--- a/result_cat.pl_.txt[m
-[1m+++ b/result_cat.jar_.txt[m
-[36m@@ -144,11 +144,11 @@[m [mh.txt[m
-
-    h <- y (no such file to %)[m
-
-    Error openning file: [31m[./y.txt].[m[32m[y.txt].[m
-
-    h <- z (no such file to @)[m
-
-    Error openning file: [31m[./z.txt].[m[32m[z.txt].[m
-
-h.end[m
-
-```
 
 ---
 
