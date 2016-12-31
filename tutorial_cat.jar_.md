@@ -141,9 +141,6 @@ result_cat.jar_.txt: ../target/cat.jar
 
     cat    a.txt # TEST LOOP (a<-b, b<-a)
     
-    file:   -----------------: D:/tzx/git/cat/test/a.txt
-    file:   -----------------: D:/tzx/git/cat/test/b.txt
-    file:   -----------------: D:/tzx/git/cat/test/a.txt
     a.txt
     
         a <- b
@@ -167,12 +164,6 @@ result_cat.jar_.txt: ../target/cat.jar
     
     cat    c.txt # TEST MULTIPLE INCLUSIONS
     
-    file:   -----------------: D:/tzx/git/cat/test/c.txt
-    file:   -----------------: D:/tzx/git/cat/test/d/da.txt
-    file:   -----------------: D:/tzx/git/cat/test/e.txt
-    file:   -----------------: D:/tzx/git/cat/test/a.txt
-    file:   -----------------: D:/tzx/git/cat/test/b.txt
-    file:   -----------------: D:/tzx/git/cat/test/a.txt
     c.txt
     
         c <- da
@@ -216,10 +207,6 @@ result_cat.jar_.txt: ../target/cat.jar
     
     cat    f.txt # TEST EXPAND/NOT
     
-    file:   -----------------: D:/tzx/git/cat/test/f.txt
-    file:   -----------------: D:/tzx/git/cat/test/a.txt
-    file:   -----------------: D:/tzx/git/cat/test/b.txt
-    file:   -----------------: D:/tzx/git/cat/test/a.txt
     f.txt
     
         f <- a (expand)
@@ -259,8 +246,6 @@ result_cat.jar_.txt: ../target/cat.jar
     
     cat    g.txt # SELF INCLUSION
     
-    file:   -----------------: D:/tzx/git/cat/test/g.txt
-    file:   -----------------: D:/tzx/git/cat/test/g.txt
     g.txt
     
         g <- g (expand, won't work)
@@ -296,7 +281,6 @@ result_cat.jar_.txt: ../target/cat.jar
     
     cat    h.txt # NO SUCH FILE
     
-    file:   -----------------: D:/tzx/git/cat/test/h.txt
     h.txt
     
         h <- y (no such file to %)
@@ -312,7 +296,6 @@ result_cat.jar_.txt: ../target/cat.jar
     
     cat    i.txt # VERBATIM
     
-    file:   -----------------: D:/tzx/git/cat/test/i.txt
     i.txt
     
         reveal with @@include/%%include (verbatim)
@@ -326,7 +309,6 @@ result_cat.jar_.txt: ../target/cat.jar
     
     cat    j.txt # ABSOLUTE PATH
     
-    file:   -----------------: D:/tzx/git/cat/test/j.txt
     j.txt
     
         C:\Windows\System32\winrm.cmd (works on windows)

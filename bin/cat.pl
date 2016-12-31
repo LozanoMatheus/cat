@@ -27,8 +27,8 @@ sub printLines {
             print $padding.$_."\n";
         }
     } else {
-        print STDERR $padding."Error openning file: [".$filename."].\n";
-        print        $padding."Error openning file: [".$filename."].\n";
+        print STDERR   "Error openning file: [".$filename."].\n";
+        print $padding."Error openning file: [".$filename."].\n";
     }
 }
 
@@ -36,8 +36,8 @@ sub unfold {
     my $padding     = shift;
     my $filename    = shift;
     if (! -e $filename) {
-        print STDERR $padding."Error openning file: [".$filename."].\n";
-        print        $padding."Error openning file: [".$filename."].\n";
+        print STDERR   "Error openning file: [".$filename."].\n";
+        print $padding."Error openning file: [".$filename."].\n";
         return;
     }
     my $fullname    = abs_path($filename);

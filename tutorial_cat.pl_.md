@@ -1,4 +1,3 @@
-file:   -----------------: D:/tzx/git/cat/tutorial_cat.pl_.txt
 比如有以下文件：
 
 [`test/a.txt`](test/a.txt)
