@@ -16,8 +16,8 @@
 
     // Verbatim
 
-    @include <-=path= »á±ä³É @include <-=path=
-    %include <-=path= »á±ä³É %include <-=path=
+    "@@include <-=path=" »á±ä³É "@include <-=path="
+    "%%include <-=path=" »á±ä³É "%include <-=path="
 
     //  path ¿ÉÒÔÊÇ¾ø¶ÔÂ·¾¶£¬±ÈÈç£º
     //
@@ -55,3 +55,14 @@
 h.end[m
 
 ```
+
+---
+
+Known bugs:
+
+-   @@include <-=path= »á±ä³É @include <-=path=
+-   %%include <-=path= »á±ä³É %include <-=path=
+
+todo features:
+
+-   do not include yml meta block

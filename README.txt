@@ -16,8 +16,8 @@
 
     // Verbatim
 
-    @@include <-=path= 会变成 @include <-=path=
-    %%include <-=path= 会变成 %include <-=path=
+    "@@include <-=path=" 会变成 "@include <-=path="
+    "%%include <-=path=" 会变成 "%include <-=path="
 
     //  path 可以是绝对路径，比如：
     //
@@ -40,3 +40,14 @@
 ```git-diff
 %include <-=test/result_diff_.txt=
 ```
+
+---
+
+Known bugs:
+
+-   @@include <-=path= 会变成 @include <-=path=
+-   %%include <-=path= 会变成 %include <-=path=
+
+todo features:
+
+-   do not include yml meta block
