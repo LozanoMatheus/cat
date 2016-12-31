@@ -36,3 +36,7 @@
 使用实例见
 [`tutorial_cat.jar_.md`](tutorial_cat.jar_.md) 和
 [`tutorial_cat.pl_.md`](tutorial_cat.pl_.md)。
+
+```git-diff
+%include <-=test/result_diff_.txt=
+```

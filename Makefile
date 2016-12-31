@@ -1,10 +1,11 @@
 .PHONY: clean test
 
-txt := tutorial_cat.jar_.md tutorial_cat.pl_.md
+txt := $(wildcard *.txt)
+md  := $(txt:%.txt=%.md)
 
-all: target/cat.jar test $(txt:%.txt=%.md)
+all: target/cat.jar test $(md)
 clean:
-	rm -rf target/ $(txt)
+	rm -rf target/ $(md)
 	make -C test -f build.mk clean
 gh:
 	git add -A; git commit -m "`date`"; git push;
@@ -14,10 +15,8 @@ target/cat.jar: $(wildcard src/main/java/com/tangzhixiong/cat/*.java)
 
 test: target/cat.jar
 	make -C test -f build.mk
-tutorial_cat.jar_.md: tutorial_cat.jar_.txt
-	perl bin/cat.pl $< > $@
-tutorial_cat.pl_.md: tutorial_cat.pl_.txt
-	java -jar target/cat.jar $< > $@
+%.md: target/cat.jar %.txt
+	java -jar $^ > $@
 
 test1: target/cat.jar
 	@echo test simple inclusion.

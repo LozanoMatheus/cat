@@ -25,7 +25,7 @@ public class Cat {
         return new ArrayList<>();
     }
 
-    // filename should be a canonicalpath
+    // file is 100% readable
     private static List<String> preserveLines(File file) {
         ArrayList<String> lines = new ArrayList<>();
         try (
@@ -35,10 +35,8 @@ public class Cat {
                 String line = scanner.nextLine();
                 lines.add(line);
             }
-        } catch (Exception e) {
-        } finally {
-            return lines;
-        }
+        } catch (Exception e) {}
+        return lines;
     }
 
     // file is 100% readable
