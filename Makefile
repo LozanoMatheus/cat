@@ -7,7 +7,7 @@ all: target/cat.jar test $(md) html
 clean:
 	rm -rf target/ $(md) html
 	make -C test -f build.mk clean
-gh:
+gh: all
 	git add -A; git commit -m "`date`"; git push;
 
 target/cat.jar: $(wildcard src/main/java/com/tangzhixiong/cat/*.java)
