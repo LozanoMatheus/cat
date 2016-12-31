@@ -18,7 +18,6 @@
 
     "@@include <-=path=" 会变成 "@include <-=path="
     "%%include <-=path=" 会变成 "%include <-=path="
-    %%include <-=path=" 会变成 "%include <-=path=
 
     //  path 可以是绝对路径，比如：
     //
