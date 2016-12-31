@@ -1,8 +1,58 @@
 [1mdiff --git a/result_cat.pl_.txt b/result_cat.jar_.txt[m
-[1mindex cd55ec1..ae92653 100644[m
+[1mindex aef3a7f..1deb647 100644[m
 [1m--- a/result_cat.pl_.txt[m
 [1m+++ b/result_cat.jar_.txt[m
-[36m@@ -144,11 +144,11 @@[m [mh.txt[m
+[36m@@ -16,13 +16,13 @@[m [ma.txt[m
+        [m
+        a.end[m
+        [m
+        [31mä¸­æ–‡ã€‚[m[32mÖÐÎÄ¡£[m
+    [m
+    b.end[m
+
+a.end[m
+
+[31mä¸­æ–‡ã€‚[m[32mÖÐÎÄ¡£[m
+
+
+cat    c.txt # TEST MULTIPLE INCLUSIONS[m
+[36m@@ -59,13 +59,13 @@[m [mc.txt[m
+                [m
+                a.end[m
+                [m
+                [31mä¸­æ–‡ã€‚[m[32mÖÐÎÄ¡£[m
+            [m
+            b.end[m
+        [m
+        a.end[m
+        [m
+        [31mä¸­æ–‡ã€‚[m[32mÖÐÎÄ¡£[m
+    [m
+    da.end[m
+
+[36m@@ -94,13 +94,13 @@[m [mf.txt[m
+            [m
+            a.end[m
+            [m
+            [31mä¸­æ–‡ã€‚[m[32mÖÐÎÄ¡£[m
+        [m
+        b.end[m
+    [m
+    a.end[m
+    [m
+    [31mä¸­æ–‡ã€‚[m[32mÖÐÎÄ¡£[m
+
+    f <- a (not expand)[m
+
+[36m@@ -112,7 +112,7 @@[m [mf.txt[m
+    [m
+    a.end[m
+    [m
+    [31mä¸­æ–‡ã€‚[m[32mÖÐÎÄ¡£[m
+
+f.end[m
+
+[36m@@ -158,11 +158,11 @@[m [mh.txt[m
 
     h <- y (no such file to %)[m
 

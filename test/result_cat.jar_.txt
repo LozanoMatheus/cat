@@ -15,10 +15,14 @@ a.txt
             @include <-=b.txt=
         
         a.end
+        
+        中文。
     
     b.end
 
 a.end
+
+中文。
 
 
 cat    c.txt # TEST MULTIPLE INCLUSIONS
@@ -54,10 +58,14 @@ c.txt
                     @include <-=b.txt=
                 
                 a.end
+                
+                中文。
             
             b.end
         
         a.end
+        
+        中文。
     
     da.end
 
@@ -85,10 +93,14 @@ f.txt
                 @include <-=b.txt=
             
             a.end
+            
+            中文。
         
         b.end
     
     a.end
+    
+    中文。
 
     f <- a (not expand)
 
@@ -99,6 +111,8 @@ f.txt
         @include <-=b.txt=
     
     a.end
+    
+    中文。
 
 f.end
 

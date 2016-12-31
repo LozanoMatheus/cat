@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * Created by tzx on 2016/12/30.
  */
 public class Cat {
-    final private static Pattern p = Pattern.compile("^( *)([%@]{1,2})include <-=(.*)=$");
+    final private static Pattern p = Pattern.compile("^( *)([%@]{1,2})include <-=([^=]*)=$");
 
     public static List<String> cat(String filename) {
         File file = new File(filename);

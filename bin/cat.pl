@@ -2,6 +2,9 @@
 
 # Usage:
 #       $ perl cat.pl INPUT_FILE > OUTPUT_FILE
+#
+# Detailed Example:
+#       https://github.com/district10/cat/blob/master/tutorial_cat.pl_.md
 
 use 5.010;
 use strict;
@@ -40,7 +43,7 @@ sub unfoldLines {
         print    $pd."Error openning file: [".$fn."].\n";
         return;
     }
-    my $ap    = abs_path($fn);              # ap: abs path
+    my $ap = abs_path($fn);                 # ap: abs path
     if (&inList($ap, @_) == 1) {
         &preserveLines($pd, $fn);
     } else {
@@ -49,23 +52,23 @@ sub unfoldLines {
         my $dn = dirname($fn);              # dn: dirname
         while(<$fh>) {
             s/\r?\n?$//;
-            if (/^(\s*)\@include <-=(.*)=$/) {
+            if (/^(\s*)\@include <-=([^=]*)=$/) {
                 my $p = $1; my $f = $2;
                 if ($f =~ /^.:/ or $f =~ /^\//) {
                     &unfoldLines($pd.$p, $f, @_);
                 } else {
                     &unfoldLines($pd.$p, $dn."/".$f, @_);
                 }
-            } elsif (/^(\s*)\%include <-=(.*)=$/) {
+            } elsif (/^(\s*)\%include <-=([^=]*)=$/) {
                 my $p = $1; my $f = $2;
                 if ($f =~ /^.:/ or $f =~ /^\//) {
                     &preserveLines($pd.$p, $f);
                 } else {
                     &preserveLines($pd.$p, $dn."/".$f);
                 }
-            } elsif (/^(?<p>\s*)\%\%include <-=(?<f>.*)=$/) {
+            } elsif (/^(?<p>\s*)\%\%include <-=(?<f>[^=]*)=$/) {
                 print $pd.$+{p}.'%include <-='.$+{f}."=\n";
-            } elsif (/^(?<p>\s*)\@\@include <-=(?<f>.*)=$/) {
+            } elsif (/^(?<p>\s*)\@\@include <-=(?<f>[^=]*)=$/) {
                 print $pd.$+{p}.'@include <-='.$+{f}."=\n";
             } else {
                 print $pd.$_."\n";
