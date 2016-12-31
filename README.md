@@ -1,38 +1,57 @@
 # cat
 
-`bin` ä¸‹é¢çš„ [`cat.pl`](bin/cat.pl) å°±åƒ `cat` è¿™ä¸ªæŒ‡ä»¤ä¸€æ ·ï¼Œ
-å®ƒå¯ä»¥è¿žæŽ¥ï¼ˆåˆå¹¶ï¼‰å¤šä¸ªæ–‡ä»¶ï¼Œä½† `cat` æ˜¯æ¨ªå‘åœ°åˆå¹¶ï¼Œ`cat.pl` æ˜¯
-çºµå‘åœ°åˆå¹¶ã€‚
+`bin` ÏÂÃæµÄ [`cat.pl`](bin/cat.pl) ¾ÍÏñ `cat` Õâ¸öÖ¸ÁîÒ»Ñù£¬
+Ëü¿ÉÒÔÁ¬½Ó£¨ºÏ²¢£©¶à¸öÎÄ¼þ£¬µ« `cat` ÊÇºáÏòµØºÏ²¢£¬`cat.pl` ÊÇ
+×ÝÏòµØºÏ²¢¡£
 
-ä½¿ç”¨æ–¹æ³•ä¸ºï¼š
+Ê¹ÓÃ·½·¨Îª£º
 
-    // é€’å½’åœ°å¼•å…¥å…¶å®ƒæ–‡ä»¶ï¼š(mnemonics/å·§è®°æ³•: `@` è±¡å½¢ä¸ºé€’å½’)
+    // µÝ¹éµØÒýÈëÆäËüÎÄ¼þ£º(mnemonics/ÇÉ¼Ç·¨: `@` ÏóÐÎÎªµÝ¹é)
 
-    @@include <-=path=
+    @include <-=path=
 
-    // åŽŸæ ·åœ°å¼•å…¥å…¶å®ƒæ–‡ä»¶ï¼š(mnemonics: `%` **p**ercent/ç™¾åˆ†å· ---> **p**reserve/ä¿ç•™)
+    // Ô­ÑùµØÒýÈëÆäËüÎÄ¼þ£º(mnemonics: `%` **p**ercent/°Ù·ÖºÅ ---> **p**reserve/±£Áô)
 
-    %%include <-=path=
+    %include <-=path=
 
     // Verbatim
 
-    @@include <-=path= ä¼šå˜æˆ @include <-=path=
-    %%include <-=path= ä¼šå˜æˆ %include <-=path=
+    @include <-=path= »á±ä³É @include <-=path=
+    %include <-=path= »á±ä³É %include <-=path=
 
-    //  path å¯ä»¥æ˜¯ç»å¯¹è·¯å¾„ï¼Œæ¯”å¦‚ï¼š
+    //  path ¿ÉÒÔÊÇ¾ø¶ÔÂ·¾¶£¬±ÈÈç£º
     //
     //      "D:\tzx\git\cat\README.md"
     //      "D:\\tzx\\git\\cat\\README.md"
     //      "D:/tzx/git/cat/README.md"
     //      "~/git/cat/README.md"
     //
-    //  ä¹Ÿå¯ä»¥æ˜¯ç›¸å¯¹è·¯å¾„ï¼ˆç›¸å¯¹äºŽå½“å‰å¤„ç†çš„æ–‡æœ¬ï¼‰ï¼Œæ¯”å¦‚ï¼š
+    //  Ò²¿ÉÒÔÊÇÏà¶ÔÂ·¾¶£¨Ïà¶ÔÓÚµ±Ç°´¦ÀíµÄÎÄ±¾£©£¬±ÈÈç£º
     //
     //      "test/a.txt"
     //      "test/d/../b.txt"
     //      "../blog/README"
 
-`cat.jar` å®žçŽ°äº†ç±»ä¼¼çš„åŠŸèƒ½ï¼ˆä½¿ç”¨ `make` æ¥ç”Ÿæˆ jar åŒ…ï¼‰ï¼Œä¸¤è€…çš„è¡¨çŽ°å‡ ä¹Žä¸€è‡´ã€‚
-ä½¿ç”¨å®žä¾‹è§
-[`tutorial_cat.jar_.md`](tutorial_cat.jar_.md) å’Œ
-[`tutorial_cat.pl_.md`](tutorial_cat.pl_.md)ã€‚
+`cat.jar` ÊµÏÖÁËÀàËÆµÄ¹¦ÄÜ£¨Ê¹ÓÃ `make` À´Éú³É jar °ü£©£¬Á½ÕßµÄ±íÏÖ¼¸ºõÒ»ÖÂ¡£
+Ê¹ÓÃÊµÀý¼û
+[`tutorial_cat.jar_.md`](tutorial_cat.jar_.md) ºÍ
+[`tutorial_cat.pl_.md`](tutorial_cat.pl_.md)¡£
+
+```git-diff
+[1mdiff --git a/result_cat.pl_.txt b/result_cat.jar_.txt[m
+[1mindex cd55ec1..ae92653 100644[m
+[1m--- a/result_cat.pl_.txt[m
+[1m+++ b/result_cat.jar_.txt[m
+[36m@@ -144,11 +144,11 @@[m [mh.txt[m
+
+    h <- y (no such file to %)[m
+
+    Error openning file: [31m[./y.txt].[m[32m[y.txt].[m
+
+    h <- z (no such file to @)[m
+
+    Error openning file: [31m[./z.txt].[m[32m[z.txt].[m
+
+h.end[m
+
+```

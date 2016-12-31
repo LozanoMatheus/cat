@@ -52,4 +52,4 @@ result_cat.jar_.txt: ../target/cat.jar
 	cd .. && mvn package
 
 result_diff_.txt: result_cat.pl_.txt result_cat.jar_.txt
-	git diff --no-index --color-words --minimal -- $^ > $@ || :
+	git diff --no-index --color-words --patience -- $^ > $@ || :

@@ -80,12 +80,12 @@
     
     g.end
 
-通过 Makefile（[`test/build.mk`](test/build.mk)]）：
+通过 Makefile（[`test/build.mk`](test/build.mk)）：
 
 ```makefile
 .PHONY: clean
 
-outputs := result_cat.pl_.txt result_cat.jar_.txt
+outputs := result_cat.pl_.txt result_cat.jar_.txt result_diff_.txt
 
 all: $(outputs)
 clean:
@@ -135,6 +135,9 @@ result_cat.jar_.txt: ../target/cat.jar
 
 ../target/cat.jar:
 	cd .. && mvn package
+
+result_diff_.txt: result_cat.pl_.txt result_cat.jar_.txt
+	git diff --no-index --color-words --minimal -- $^ > $@ || :
 ```
 
 生成的 [`test/result_cat.pl_.txt`](test/result_cat.pl_.txt) 为：

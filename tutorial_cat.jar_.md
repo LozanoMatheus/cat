@@ -1,4 +1,4 @@
-æ¯”å¦‚æœ‰ä»¥ä¸‹æ–‡ä»¶ï¼š
+±ÈÈçÓĞÒÔÏÂÎÄ¼ş£º
 
 [`test/a.txt`](test/a.txt)
 
@@ -80,12 +80,12 @@
     
     g.end
 
-é€šè¿‡ Makefileï¼ˆ[`test/build.mk`](test/build.mk)]ï¼‰ï¼š
+Í¨¹ı Makefile£¨[`test/build.mk`](test/build.mk)£©£º
 
 ```makefile
 .PHONY: clean
 
-outputs := result_cat.pl_.txt result_cat.jar_.txt
+outputs := result_cat.pl_.txt result_cat.jar_.txt result_diff_.txt
 
 all: $(outputs)
 clean:
@@ -135,9 +135,12 @@ result_cat.jar_.txt: ../target/cat.jar
 
 ../target/cat.jar:
 	cd .. && mvn package
+
+result_diff_.txt: result_cat.pl_.txt result_cat.jar_.txt
+	git diff --no-index --color-words --minimal -- $^ > $@ || :
 ```
 
-ç”Ÿæˆçš„ [`test/result_cat.jar_.txt`](test/result_cat.jar_.txt) ä¸ºï¼š
+Éú³ÉµÄ [`test/result_cat.jar_.txt`](test/result_cat.jar_.txt) Îª£º
 
     cat    a.txt # TEST LOOP (a<-b, b<-a)
     
