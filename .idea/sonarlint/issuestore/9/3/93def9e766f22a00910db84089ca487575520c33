@@ -1,10 +1,0 @@
-
-O
-squid:S106";Replace this usage of System.out or System.err by a logger.(²ÿ‘ú
-T
-squid:S106";Replace this usage of System.out or System.err by a logger.(ñ—¸½úÿÿÿÿ
-Osquid:S1118":Add a private constructor to hide the implicit public one.(àªÅö
-?squid:S00108")Either remove or fill this block of code.(”ı¾
-:squid:S1166"%Either log or rethrow this exception.(”ı¾
-=squid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-:squid:S1166"%Either log or rethrow this exception.(”ı¾

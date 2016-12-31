@@ -51,13 +51,7 @@ c.txt
                 
                     a <- b
                 
-                    b.txt
-                    
-                        b <- a
-                    
-                        @include <-=a.txt=
-                    
-                    b.end
+                    @include <-=b.txt=
                 
                 a.end
             
@@ -150,11 +144,11 @@ h.txt
 
     h <- y (no such file to %)
 
-    Error openning file: [D:\tzx\git\cat\test\y.txt].
+    Error openning file: [y.txt].
 
     h <- z (no such file to @)
 
-    Error openning file: [D:\tzx\git\cat\test\z.txt].
+    Error openning file: [z.txt].
 
 h.end
 

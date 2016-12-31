@@ -1,23 +1,0 @@
-
-1squid:S1643"Use a StringBuilder instead.(—€ß«
-hsquid:ModifiersOrderCheck"EReorder the modifiers to comply with the Java Language Specification.(¹ò°´
-Bsquid:S1199"-Extract this nested code block into a method.(ÈËœ›
-Gsquid:S1199"-Extract this nested code block into a method.(Šğâµúÿÿÿÿ
-g
-squid:S134"NRefactor this code to not nest more than 3 if/for/while/switch/try statements.(Ğ¸†şÿÿÿÿ
-O
-squid:S106";Replace this usage of System.out or System.err by a logger.(ÉÒ‘
-O
-squid:S106";Replace this usage of System.out or System.err by a logger.(ÉÒ‘
-T
-squid:S106";Replace this usage of System.out or System.err by a logger.(ºıƒ¤ÿÿÿÿÿ
- squid:MethodCyclomaticComplexity"aThe Cyclomatic Complexity of this method "unfoldLines" is 21 which is greater than 10 authorized.(ƒ®èıÿÿÿÿ
-Tsquid:S1118":Add a private constructor to hide the implicit public one.(’Üûÿÿÿÿ
-:squid:S1166"%Either log or rethrow this exception.(”ı¾
-:squid:S1166"%Either log or rethrow this exception.(”ı¾
-:squid:S1166"%Either log or rethrow this exception.(”ı¾
-?squid:S00108")Either remove or fill this block of code.(”ı¾
-?squid:S00108")Either remove or fill this block of code.(”ı¾
-~squid:S1151"iReduce this switch case number of lines from 6 to at most 5, for example by extracting code into methods.(ÈËœ›
-ƒsquid:S1151"iReduce this switch case number of lines from 6 to at most 5, for example by extracting code into methods.(Šğâµúÿÿÿÿ
-Osquid:S1143"5Remove this return statement from this finally block.(°¦ü³ùÿÿÿÿ

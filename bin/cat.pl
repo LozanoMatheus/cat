@@ -73,4 +73,8 @@ sub unfold {
     }
 }
 
-&unfold("", $ARGV[0]);
+if (-f $ARGV[0]) {
+    &unfold("", $ARGV[0]);
+} else {
+    print STDERR "Error openning file: [".$ARGV[0]."].\n";
+}
