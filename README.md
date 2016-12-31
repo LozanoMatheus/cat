@@ -32,8 +32,7 @@
     //      "test/d/../b.txt"
     //      "../blog/README"
 
-`cat.jar` 实现了类似的功能（使用 `make` 来生成 jar 包），两者的表现几乎一致，
-
-使用实例见 [`tutorial_cat.pl_.md`](tutorial_cat.pl_.md)
-tutorial_cat.jar.md
-tutorial_cat.pl_.md
+`cat.jar` 实现了类似的功能（使用 `make` 来生成 jar 包），两者的表现几乎一致。
+使用实例见
+[`tutorial_cat.jar_.md`](tutorial_cat.jar_.md) 和
+[`tutorial_cat.pl_.md`](tutorial_cat.pl_.md)。
