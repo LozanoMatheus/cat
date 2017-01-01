@@ -9,6 +9,8 @@
         @include <-=b.txt=
     
     a.end
+    
+    中文。
 
 [`test/b.txt`](test/b.txt)
 
@@ -159,10 +161,14 @@ result_diff_.txt: result_cat.pl_.txt result_cat.jar_.txt
                 @include <-=b.txt=
             
             a.end
+            
+            中文。
         
         b.end
     
     a.end
+    
+    中文。
     
     
     cat    c.txt # TEST MULTIPLE INCLUSIONS
@@ -198,10 +204,14 @@ result_diff_.txt: result_cat.pl_.txt result_cat.jar_.txt
                         @include <-=b.txt=
                     
                     a.end
+                    
+                    中文。
                 
                 b.end
             
             a.end
+            
+            中文。
         
         da.end
     
@@ -229,10 +239,14 @@ result_diff_.txt: result_cat.pl_.txt result_cat.jar_.txt
                     @include <-=b.txt=
                 
                 a.end
+                
+                中文。
             
             b.end
         
         a.end
+        
+        中文。
     
         f <- a (not expand)
     
@@ -243,6 +257,8 @@ result_diff_.txt: result_cat.pl_.txt result_cat.jar_.txt
             @include <-=b.txt=
         
         a.end
+        
+        中文。
     
     f.end
     

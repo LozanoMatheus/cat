@@ -1,0 +1,19 @@
+k.txt
+
+    with yaml block (preserve)
+
+    %include <-=l.txt=
+
+    without yaml block (preserve)
+
+    %include </=l.txt=
+
+    with yaml block (recursive)
+
+    @include <-=l.txt=
+
+    without yaml block (recursive)
+
+    @include </=l.txt=
+
+k.end

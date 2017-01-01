@@ -1,10 +1,19 @@
 #!/usr/bin/perl
-
+#
 # Usage:
 #       $ perl cat.pl INPUT_FILE > OUTPUT_FILE
 #
 # Detailed Example:
 #       https://github.com/district10/cat/blob/master/tutorial_cat.pl_.md
+#
+# Features:
+#       -   verbatim    include file:                       %include <-=path=
+#       -   recursive   include file:                       @include <-=path=
+#       -   verbatim    include file (trim yaml header):    %include </=path=
+#       -   recursive   include file (trim yaml header):    @include </=path=
+#
+# If you don't want the so called trim-yaml-header feature, the older version is much cleaner:
+#       https://github.com/district10/cat/blob/f181388065a7a074eb6e100bd91675233d830ed1/bin/cat.pl
 
 use 5.010;
 use strict;
