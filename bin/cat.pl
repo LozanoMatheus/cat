@@ -44,10 +44,7 @@ sub preserveLines {
                 }
                 my $b = readline($fh);
                 $b =~ s/\r?\n?$//;
-                if ($b eq '') {
-                } else {
-                    print $pd.$b."\n";
-                }
+                print $pd.$b."\n" unless $b eq '';
             }  else {
                 print $pd.$f."\n";
             }
@@ -81,15 +78,10 @@ sub unfoldLines {
             my $f = readline($fh);
             $f =~ s/\r?\n?$//;
             if ($f eq '---') {
-                while(<$fh>) {
-                    last if /^---\r?\n?$/;
-                }
+                while(<$fh>) { last if /^---\r?\n?$/; }
                 my $b = readline($fh);
                 $b =~ s/\r?\n?$//;
-                if ($b eq '') {
-                } else {
-                    print $pd.$b."\n";
-                }
+                print $pd.$b."\n" unless $b eq '';
             }  else {
                 print $pd.$f."\n";
             }
@@ -99,18 +91,12 @@ sub unfoldLines {
             s/\r?\n?$//;
             if (/^(\s*)\@include <([-\/])=([^=]*)=$/) {
                 my $p = $1; my $s = $2; my $f = $3;
-                if ($f =~ /^.:/ or $f =~ /^\//) {
-                    &unfoldLines($pd.$p, $f, $s eq '/' ? 1 : 0, @_);
-                } else {
-                    &unfoldLines($pd.$p, $dn."/".$f, $s eq '/' ? 1 : 0, @_);
-                }
+                $f = $dn."/".$f unless $f =~ /^.:/ or $f =~ /^\//;
+                &unfoldLines($pd.$p, $f, $s eq '/' ? 1 : 0, @_);
             } elsif (/^(\s*)\%include <([-\/])=([^=]*)=$/) {
                 my $p = $1; my $s = $2; my $f = $3;
-                if ($f =~ /^.:/ or $f =~ /^\//) {
-                    &preserveLines($pd.$p, $f, $s eq '/' ? 1 : 0);
-                } else {
-                    &preserveLines($pd.$p, $dn."/".$f, $s eq '/' ? 1 : 0);
-                }
+                $f = $dn."/".$f unless $f =~ /^.:/ or $f =~ /^\//;
+                &preserveLines($pd.$p, $f, $s eq '/' ? 1 : 0);
             } elsif (/^(?<p>\s*)(?<m>[\%\@])\2include <(?<s>[-\/])=(?<f>[^=]*)=$/) {
                 print $pd.$+{p}.$+{m}.'include <'.$+{s}.'='.$+{f}."=\n";
             } else {

@@ -1,593 +1,64 @@
 cat    a.txt # TEST LOOP (a<-b, b<-a)
 
-a.txt
-
-    a <- b
-
-    b.txt
-
-        b <- a
-
-        a.txt
-
-            a <- b
-
-            @include <-=b.txt=
-
-        a.end
-
-        中文。
-
-    b.end
-
-a.end
-
-中文。
+yy%%xx, yy
+yy@@xx, yy
 
 
 cat    c.txt # TEST MULTIPLE INCLUSIONS
 
-c.txt
-
-    c <- da
-
-    da.txt
-
-        da <- e
-
-        e.txt
-
-        (nothing here in e.txt)
-
-        e.end
-
-        da <- a
-
-        a.txt
-
-            a <- b
-
-            b.txt
-
-                b <- a
-
-                a.txt
-
-                    a <- b
-
-                    @include <-=b.txt=
-
-                a.end
-
-                中文。
-
-            b.end
-
-        a.end
-
-        中文。
-
-    da.end
-
-c.end
+yy%%xx, yy
+yy@@xx, yy
 
 
 cat    f.txt # TEST EXPAND/NOT
 
-f.txt
-
-    f <- a (expand)
-
-    a.txt
-
-        a <- b
-
-        b.txt
-
-            b <- a
-
-            a.txt
-
-                a <- b
-
-                @include <-=b.txt=
-
-            a.end
-
-            中文。
-
-        b.end
-
-    a.end
-
-    中文。
-
-    f <- a (not expand)
-
-    a.txt
-
-        a <- b
-
-        @include <-=b.txt=
-
-    a.end
-
-    中文。
-
-f.end
+yy%%xx, yy
+yy@@xx, yy
 
 
 cat    g.txt # SELF INCLUSION
 
-g.txt
-
-    g <- g (expand, won't work)
-
-    g.txt
-
-        g <- g (expand, won't work)
-
-        @include <-=g.txt=
-
-        g <- g (not expand)
-
-        %include <-=g.txt=
-
-    g.end
-
-    g <- g (not expand)
-
-    g.txt
-
-        g <- g (expand, won't work)
-
-        @include <-=g.txt=
-
-        g <- g (not expand)
-
-        %include <-=g.txt=
-
-    g.end
-
-g.end
+yy%%xx, yy
+yy@@xx, yy
 
 
 cat    h.txt # NO SUCH FILE
 
-h.txt
-
-    h <- y (no such file to %)
-
-    Error openning file: [y.txt].
-
-    h <- z (no such file to @)
-
-    Error openning file: [z.txt].
-
-h.end
+yy%%xx, yy
+yy@@xx, yy
 
 
 cat    i.txt # VERBATIM
 
-i.txt
-
-    reveal with @@include/%%include (verbatim)
-
-    %include <-=a.txt=
-
-    @include <-=a.txt=
-
-i.end
+yy%%xx, yy
+yy@@xx, yy
 
 
 cat    j.txt # ABSOLUTE PATH
 
-j.txt
-
-    C:\Windows\System32\winrm.cmd (works on windows)
-
-    @echo off
-    IF EXIST %SystemRoot%\system32\cscript.exe (
-        @cscript //nologo "%~dpn0.vbs" %*
-    ) ELSE (
-        echo.
-        echo WinRM command line is not available on this system.
-        exit /B 1
-    )
-
-
-    C:/Windows/System32/winrm.cmd (works on windows)
-
-    @echo off
-    IF EXIST %SystemRoot%\system32\cscript.exe (
-        @cscript //nologo "%~dpn0.vbs" %*
-    ) ELSE (
-        echo.
-        echo WinRM command line is not available on this system.
-        exit /B 1
-    )
-
-
-    C:\\Windows\\System32\\winrm.cmd (works on windows)
-
-    @echo off
-    IF EXIST %SystemRoot%\system32\cscript.exe (
-        @cscript //nologo "%~dpn0.vbs" %*
-    ) ELSE (
-        echo.
-        echo WinRM command line is not available on this system.
-        exit /B 1
-    )
-
-
-    Error openning file: [/etc/issue].
-
-j.end
+yy%%xx, yy
+yy@@xx, yy
 
 
 cat    m.txt # YAML HEADER
 
----
-title: this is m.txt
-author: tzx
----
-
-m.txt
-
-    comment out:
-
-    %include </=m.txt=
-    @include </=m.txt=
-
-    shave
-
-    m.txt
-
-        comment out:
-
-        %%include </=m.txt=
-        @@include </=m.txt=
-
-        shave
-
-        %include </=m.txt=
-
-        not shave
-
-        %include <-=m.txt=
-
-        recursive a.txt
-
-        @include <-=a.txt=
-
-        preserve a.txt
-
-        %include <-=a.txt=
-
-    m.end
-
-    not shave
-
-    ---
-    title: this is m.txt
-    author: tzx
-    ---
-
-    m.txt
-
-        comment out:
-
-        %%include </=m.txt=
-        @@include </=m.txt=
-
-        shave
-
-        %include </=m.txt=
-
-        not shave
-
-        %include <-=m.txt=
-
-        recursive a.txt
-
-        @include <-=a.txt=
-
-        preserve a.txt
-
-        %include <-=a.txt=
-
-    m.end
-
-    recursive a.txt
-
-    a.txt
-
-        a <- b
-
-        b.txt
-
-            b <- a
-
-            a.txt
-
-                a <- b
-
-                @include <-=b.txt=
-
-            a.end
-
-            中文。
-
-        b.end
-
-    a.end
-
-    中文。
-
-    preserve a.txt
-
-    a.txt
-
-        a <- b
-
-        @include <-=b.txt=
-
-    a.end
-
-    中文。
-
-m.end
+yy%%xx, yy
+yy@@xx, yy
 
 
 cat    k1.txt # YAML HEADER
 
-k1.txt
-
-    without yaml block (recursive)
-
-    l1.txt
-
-        without yaml block (recursive)
-
-        k1.txt
-
-            without yaml block (recursive)
-
-            @include </=l1.txt=
-
-        k1.end
-
-        recursive include a.txt
-
-        a.txt
-
-            a <- b
-
-            b.txt
-
-                b <- a
-
-                a.txt
-
-                    a <- b
-
-                    @include <-=b.txt=
-
-                a.end
-
-                中文。
-
-            b.end
-
-        a.end
-
-        中文。
-
-    l1.end
-
-k1.end
+yy%%xx, yy
+yy@@xx, yy
 
 
 cat    k2.txt # YAML HEADER
 
-k2.txt
-
-    with yaml block (recursive)
-
-    ---
-    title: this is l2.txt
-    author: tzx
-    ---
-
-    l2.txt
-
-        with yaml block (recursive)
-
-        k2.txt
-
-            with yaml block (recursive)
-
-            @include <-=l2.txt=
-
-        k2.end
-
-    l2.end
-
-k2.end
+yy%%xx, yy
+yy@@xx, yy
 
 
 cat    k.txt # YAML HEADER
 
-k.txt
-
-    without yaml block (recursive)
-
-    l.txt
-
-        without yaml block (recursive)
-
-        k.txt
-
-            without yaml block (recursive)
-
-            @include </=l.txt=
-
-            with yaml block (recursive)
-
-            @include <-=l.txt=
-
-            without yaml block (preserve)
-
-            %include </=l.txt=
-
-            with yaml block (preserve)
-
-            %include <-=l.txt=
-
-        k.end
-
-        with yaml block (recursive)
-
-        k.txt
-
-            without yaml block (recursive)
-
-            @include </=l.txt=
-
-            with yaml block (recursive)
-
-            @include <-=l.txt=
-
-            without yaml block (preserve)
-
-            %include </=l.txt=
-
-            with yaml block (preserve)
-
-            %include <-=l.txt=
-
-        k.end
-
-        without yaml block (preserve)
-
-        k.txt
-
-            without yaml block (recursive)
-
-            @include </=l.txt=
-
-            with yaml block (recursive)
-
-            @include <-=l.txt=
-
-            without yaml block (preserve)
-
-            %include </=l.txt=
-
-            with yaml block (preserve)
-
-            %include <-=l.txt=
-
-        k.end
-
-        with yaml block (preserve)
-
-        k.txt
-
-            without yaml block (recursive)
-
-            @include </=l.txt=
-
-            with yaml block (recursive)
-
-            @include <-=l.txt=
-
-            without yaml block (preserve)
-
-            %include </=l.txt=
-
-            with yaml block (preserve)
-
-            %include <-=l.txt=
-
-        k.end
-
-    l.end
-
-    with yaml block (recursive)
-
-    ---
-    title: this is l.txt
-    author: tzx
-    ---
-
-    l.txt
-
-        without yaml block (recursive)
-
-        @include </=k.txt=
-
-        with yaml block (recursive)
-
-        @include <-=k.txt=
-
-        without yaml block (preserve)
-
-        %include </=k.txt=
-
-        with yaml block (preserve)
-
-        %include <-=k.txt=
-
-    l.end
-
-    without yaml block (preserve)
-
-    l.txt
-
-        without yaml block (recursive)
-
-        @include </=k.txt=
-
-        with yaml block (recursive)
-
-        @include <-=k.txt=
-
-        without yaml block (preserve)
-
-        %include </=k.txt=
-
-        with yaml block (preserve)
-
-        %include <-=k.txt=
-
-    l.end
-
-    with yaml block (preserve)
-
-    ---
-    title: this is l.txt
-    author: tzx
-    ---
-
-    l.txt
-
-        without yaml block (recursive)
-
-        @include </=k.txt=
-
-        with yaml block (recursive)
-
-        @include <-=k.txt=
-
-        without yaml block (preserve)
-
-        %include </=k.txt=
-
-        with yaml block (preserve)
-
-        %include <-=k.txt=
-
-    l.end
-
-k.end
+yy%%xx, yy
+yy@@xx, yy

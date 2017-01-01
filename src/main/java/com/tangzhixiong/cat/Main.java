@@ -31,6 +31,21 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        Pattern p = Pattern.compile("(yy)([%@])\\2xx");
+        String[] strs = {
+                "yy%%xx",
+                "yy@@xx",
+                "yy%@xx",
+                "yy@%xx",
+        };
+        for (String str : strs) {
+            Matcher m = p.matcher(str);
+            if (m.find()) {
+                System.out.println(m.group(0)+", "+m.group(1));
+            }
+        }
+
+        System.exit(0);
         try {
             // hacks copied from StackOverflow: http://stackoverflow.com/questions/361975/setting-the-default-java-character-encoding
             System.setProperty("file.encoding", "UTF-8");
