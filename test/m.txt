@@ -1,0 +1,21 @@
+---
+title: this is m.txt
+author: tzx
+---
+
+m.txt
+
+    comment out:
+
+    %%include </=m.txt=
+    @@include </=m.txt=
+
+    shave
+
+    %include </=m.txt=
+
+    not shave
+
+    %include <-=m.txt=
+
+m.end

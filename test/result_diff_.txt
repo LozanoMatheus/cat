@@ -1,13 +1,13 @@
 [1mdiff --git a/result_cat.pl_.txt b/result_cat.jar_.txt[m
-[1mindex d20a776..1deb647 100644[m
+[1mindex bd0b506..b06dcc9 100644[m
 [1m--- a/result_cat.pl_.txt[m
 [1m+++ b/result_cat.jar_.txt[m
 [36m@@ -16,13 +16,13 @@[m [ma.txt[m
-        [m
+
         a.end[m
-        [m
+
         [31mä¸­æ–‡ã€‚[m[32mÖÐÎÄ¡£[m
-    [m
+
     b.end[m
 
 a.end[m
@@ -17,37 +17,37 @@ a.end[m
 
 cat    c.txt # TEST MULTIPLE INCLUSIONS[m
 [36m@@ -59,13 +59,13 @@[m [mc.txt[m
-                [m
+
                 a.end[m
-                [m
+
                 [31mä¸­æ–‡ã€‚[m[32mÖÐÎÄ¡£[m
-            [m
+
             b.end[m
-        [m
+
         a.end[m
-        [m
+
         [31mä¸­æ–‡ã€‚[m[32mÖÐÎÄ¡£[m
-    [m
+
     da.end[m
 
 [36m@@ -94,13 +94,13 @@[m [mf.txt[m
-            [m
+
             a.end[m
-            [m
+
             [31mä¸­æ–‡ã€‚[m[32mÖÐÎÄ¡£[m
-        [m
+
         b.end[m
-    [m
+
     a.end[m
-    [m
+
     [31mä¸­æ–‡ã€‚[m[32mÖÐÎÄ¡£[m
 
     f <- a (not expand)[m
 
 [36m@@ -112,7 +112,7 @@[m [mf.txt[m
-    [m
+
     a.end[m
-    [m
+
     [31mä¸­æ–‡ã€‚[m[32mÖÐÎÄ¡£[m
 
 f.end[m
@@ -64,256 +64,87 @@ f.end[m
 
 h.end[m
 
-[36m@@ -223,252 +223,3 @@[m [mj.txt[m
-    Error openning file: [/etc/issue].[m
+[36m@@ -443,91 +443,19 @@[m [mk.txt[m
 
-j.end[m
-
-
-[31mcat    k.txt # YAML HEADER[m
+        with yaml block (recursive)[m
 
 [31mk.txt[m
 
-[31m    with yaml block (preserve)[m
-
-[31m    ---[m
-[31m    title: this is l.txt[m
-[31m    author: tzx[m
-[31m    ---[m
-[31m    [m
-[31m    l.txt[m
-[31m    [m
-[31m        with yaml block (recursive)[m
-[31m    [m
-[31m        @include <-=k.txt=[m
-[31m    [m
-[31m        with yaml block (preserve)[m
-[31m    [m
-[31m        %include <-=k.txt=[m
-[31m    [m
-[31m        without yaml block (recursive)[m
-[31m    [m
-[31m        @include </=k.txt=[m
-[31m    [m
-[31m        without yaml block (preserve)[m
-[31m    [m
-[31m        %include </=k.txt=[m
-[31m    [m
-[31m    l.end[m
-
-[31m    without yaml block (preserve)[m
-
-[31m    l.txt[m
-[31m    [m
-[31m        with yaml block (recursive)[m
-[31m    [m
-[31m        @include <-=k.txt=[m
-[31m    [m
-[31m        with yaml block (preserve)[m
-[31m    [m
-[31m        %include <-=k.txt=[m
-[31m    [m
-[31m        without yaml block (recursive)[m
-[31m    [m
-[31m        @include </=k.txt=[m
-[31m    [m
-[31m        without yaml block (preserve)[m
-[31m    [m
-[31m        %include </=k.txt=[m
-[31m    [m
-[31m    l.end[m
-
-[31m    with yaml block (recursive)[m
-
-[31m    ---[m
-[31m    title: this is l.txt[m
-[31m    author: tzx[m
-[31m    ---[m
-[31m    [m
-[31m    l.txt[m
-[31m    [m
-[31m        with yaml block (recursive)[m
-[31m    [m
-[31m        k.txt[m
-[31m        [m
 [31m            with yaml block (preserve)[m
-[31m        [m
-[31m            %include <-=l.txt=[m
-[31m        [m
-[31m            without yaml block (preserve)[m
-[31m        [m
-[31m            %include </=l.txt=[m
-[31m        [m
-[31m            with yaml block (recursive)[m
-[31m        [m
-[31m            @include <-=l.txt=[m
-[31m        [m
-[31m            without yaml block (recursive)[m
-[31m        [m
-[31m            @include </=l.txt=[m
-[31m        [m
-[31m        k.end[m
-[31m    [m
-[31m        with yaml block (preserve)[m
-[31m    [m
-[31m        k.txt[m
-[31m        [m
-[31m            with yaml block (preserve)[m
-[31m        [m
-[31m            %include <-=l.txt=[m
-[31m        [m
-[31m            without yaml block (preserve)[m
-[31m        [m
-[31m            %include </=l.txt=[m
-[31m        [m
-[31m            with yaml block (recursive)[m
-[31m        [m
-[31m            @include <-=l.txt=[m
-[31m        [m
-[31m            without yaml block (recursive)[m
-[31m        [m
-[31m            @include </=l.txt=[m
-[31m        [m
-[31m        k.end[m
-[31m    [m
-[31m        without yaml block (recursive)[m
-[31m    [m
-[31m        k.txt[m
-[31m        [m
-[31m            with yaml block (preserve)[m
-[31m        [m
-[31m            %include <-=l.txt=[m
-[31m        [m
-[31m            without yaml block (preserve)[m
-[31m        [m
-[31m            %include </=l.txt=[m
-[31m        [m
-[31m            with yaml block (recursive)[m
-[31m        [m
-[31m            @include <-=l.txt=[m
-[31m        [m
-[31m            without yaml block (recursive)[m
-[31m        [m
-[31m            @include </=l.txt=[m
-[31m        [m
-[31m        k.end[m
-[31m    [m
-[31m        without yaml block (preserve)[m
-[31m    [m
-[31m        k.txt[m
-[31m        [m
-[31m            with yaml block (preserve)[m
-[31m        [m
-[31m            %include <-=l.txt=[m
-[31m        [m
-[31m            without yaml block (preserve)[m
-[31m        [m
-[31m            %include </=l.txt=[m
-[31m        [m
-[31m            with yaml block (recursive)[m
-[31m        [m
-[31m            @include <-=l.txt=[m
-[31m        [m
-[31m            without yaml block (recursive)[m
-[31m        [m
-[31m            @include </=l.txt=[m
-[31m        [m
-[31m        k.end[m
-[31m    [m
-[31m    l.end[m
 
-[31m    without yaml block (recursive)[m
+[31m            %include <-=l.txt=[m
 
-[31m    l.txt[m
-[31m    [m
-[31m        with yaml block (recursive)[m
-[31m    [m
-[31m        k.txt[m
-[31m        [m
-[31m            with yaml block (preserve)[m
-[31m        [m
-[31m            %include <-=l.txt=[m
-[31m        [m
 [31m            without yaml block (preserve)[m
-[31m        [m
-[31m            %include </=l.txt=[m
-[31m        [m
-[31m            with yaml block (recursive)[m
-[31m        [m
-[31m            @include <-=l.txt=[m
-[31m        [m
-[31m            without yaml block (recursive)[m
-[31m        [m
-[31m            @include </=l.txt=[m
-[31m        [m
-[31m        k.end[m
-[31m    [m
-[31m        with yaml block (preserve)[m
-[31m    [m
-[31m        k.txt[m
-[31m        [m
-[31m            with yaml block (preserve)[m
-[31m        [m
-[31m            %include <-=l.txt=[m
-[31m        [m
-[31m            without yaml block (preserve)[m
-[31m        [m
-[31m            %include </=l.txt=[m
-[31m        [m
-[31m            with yaml block (recursive)[m
-[31m        [m
-[31m            @include <-=l.txt=[m
-[31m        [m
-[31m            without yaml block (recursive)[m
-[31m        [m
-[31m            @include </=l.txt=[m
-[31m        [m
-[31m        k.end[m
-[31m    [m
-[31m        without yaml block (recursive)[m
-[31m    [m
-[31m        k.txt[m
-[31m        [m
-[31m            with yaml block (preserve)[m
-[31m        [m
-[31m            %include <-=l.txt=[m
-[31m        [m
-[31m            without yaml block (preserve)[m
-[31m        [m
-[31m            %include </=l.txt=[m
-[31m        [m
-[31m            with yaml block (recursive)[m
-[31m        [m
-[31m            @include <-=l.txt=[m
-[31m        [m
-[31m            without yaml block (recursive)[m
-[31m        [m
-[31m            @include </=l.txt=[m
-[31m        [m
-[31m        k.end[m
-[31m    [m
-[31m        without yaml block (preserve)[m
-[31m    [m
-[31m        k.txt[m
-[31m        [m
-[31m            with yaml block (preserve)[m
-[31m        [m
-[31m            %include <-=l.txt=[m
-[31m        [m
-[31m            without yaml block (preserve)[m
-[31m        [m
-[31m            %include </=l.txt=[m
-[31m        [m
-[31m            with yaml block (recursive)[m
-[31m        [m
-[31m            @include <-=l.txt=[m
-[31m        [m
-[31m            without yaml block (recursive)[m
-[31m        [m
-[31m            @include </=l.txt=[m
-[31m        [m
-[31m        k.end[m
-[31m    [m
-[31m    l.end[m
 
-[31mk.end[m
+[31m            %include </=l.txt=[m
+
+[31m            with yaml block (recursive)[m        @include [31m<-=l.txt=[m
+
+[31m            without yaml block (recursive)[m
+
+[31m            @include </=l.txt=[m
+
+[31m        k.end[m[32m<-=k.txt=[m
+
+        with yaml block (preserve)[m
+
+[31mk.txt[m
+
+[31m            with yaml block (preserve)[m        %include [31m<-=l.txt=[m
+
+[31m            without yaml block (preserve)[m
+
+[31m            %include </=l.txt=[m
+
+[31m            with yaml block (recursive)[m
+
+[31m            @include <-=l.txt=[m
+
+[31m            without yaml block (recursive)[m
+
+[31m            @include </=l.txt=[m
+
+[31m        k.end[m[32m<-=k.txt=[m
+
+        without yaml block (recursive)[m
+
+[31mk.txt[m
+
+[31m            with yaml block (preserve)[m
+
+[31m            %include <-=l.txt=[m
+
+[31m            without yaml block (preserve)[m
+
+[31m            %include </=l.txt=[m
+
+[31m            with yaml block (recursive)[m        @include [31m<-=l.txt=[m
+
+[31m            without yaml block (recursive)[m
+
+[31m            @include </=l.txt=[m
+
+[31m        k.end[m[32m</=k.txt=[m
+
+        without yaml block (preserve)[m
+
+[31mk.txt[m
+
+[31m            with yaml block (preserve)[m        %include [31m<-=l.txt=[m
+
+[31m            without yaml block (preserve)[m
+
+[31m            %include </=l.txt=[m
+
+[31m            with yaml block (recursive)[m
+
+[31m            @include <-=l.txt=[m
+
+[31m            without yaml block (recursive)[m
+
+[31m            @include </=l.txt=[m
+
+[31m        k.end[m[32m</=k.txt=[m
+
+    l.end[m
+

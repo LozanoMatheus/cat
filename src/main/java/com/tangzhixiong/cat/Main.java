@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.lang.reflect.Field;
 import java.nio.charset.Charset;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
     public static void printLines(List<String> lines) {
@@ -20,7 +22,8 @@ public class Main {
         ) {
             for (String line : lines) {
                 fos.write(line.getBytes());
-                fos.write(System.lineSeparator().getBytes());
+                // fos.write(System.lineSeparator().getBytes());
+                fos.write("\n".getBytes());
             }
         } catch (Exception e) {
             e.printStackTrace();
