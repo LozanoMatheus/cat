@@ -73,7 +73,7 @@ sub unfoldLines {
     }
     my $ap = abs_path($fn);                 # ap: abs path
     if (&inList($ap, @_) == 1) {
-        &preserveLines($pd, $fn, 0);
+        &preserveLines($pd, $fn, $sv == 1);
     } else {
         unshift(@_, $ap);
         open my $fh, '<', $fn or return;
@@ -111,8 +111,8 @@ sub unfoldLines {
                 } else {
                     &preserveLines($pd.$p, $dn."/".$f, $s eq '/' ? 1 : 0);
                 }
-            } elsif (/^(?<p>\s*)(?<m>[\%\@])\2include <-=(?<f>[^=]*)=$/) {
-                print $pd.$+{p}.$+{m}.'include <-='.$+{f}."=\n";
+            } elsif (/^(?<p>\s*)(?<m>[\%\@])\2include <(?<s>[-\/])=(?<f>[^=]*)=$/) {
+                print $pd.$+{p}.$+{m}.'include <'.$+{s}.'='.$+{f}."=\n";
             } else {
                 print $pd.$_."\n";
             }
