@@ -32,7 +32,9 @@
     //      "../blog/README"
     //      "~/git/cat/README.md"
 
-这是一个比较 clean 的 cat.pl，已经相当强大，源码不多，贴在这里：
+---
+
+这是一个比较 clean 的 cat.pl，已经相当强大，源码不多，贴在这里（如果你喜欢简洁版）：
 
 ```perl
 #!/usr/bin/perl
@@ -42,15 +44,6 @@
 #
 # Detailed Example:
 #       https://github.com/district10/cat/blob/master/tutorial_cat.pl_.md
-#
-# Features:
-#       -   verbatim    include file:                       %include <-=path=
-#       -   recursive   include file:                       @include <-=path=
-#       -   verbatim    include file (trim yaml header):    %include </=path=
-#       -   recursive   include file (trim yaml header):    @include </=path=
-#
-# If you don't want the so called trim-yaml-header feature, the older version is much cleaner:
-#       https://github.com/district10/cat/blob/f181388065a7a074eb6e100bd91675233d830ed1/bin/cat.pl
 
 use 5.010;
 use strict;
@@ -130,10 +123,11 @@ if (-f $ARGV[0]) {
 }
 ```
 
-后来，cat.pl 有了【去除 yaml 头】的功能，就变得臃肿了一点。
+---
+
+后来，[`cat.pl`](bin/cat.pl) 有了【去除 yaml 头】的功能，就变得臃肿了一点。
 
 `cat.jar` 实现了类似的功能（使用 `make` 来生成 jar 包），两者的表现几乎一致。
 使用实例见
 [`tutorial_cat.jar_.md`](tutorial_cat.jar_.md) 和
 [`tutorial_cat.pl_.md`](tutorial_cat.pl_.md)。
-
