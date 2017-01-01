@@ -24,7 +24,25 @@ sub inList {                                # is needle in haystack?
 sub preserveLines {
     my $pd = shift;                         # pd: padding
     my $fn = shift;                         # fn: filename
+    my $sv = shift;                         # sv: shave
     if (open my $fh, '<', $fn) {            # fh: file handle
+        if ($sv == 1) {
+            my $f = readline($fh);          # first line of file
+            $f =~ s/\r?\n?$//;
+            if ($f eq '---') {
+                while(<$fh>) {
+                    last if /^---\r?\n?$/;  # shave out
+                }
+                my $b = readline($fh);
+                $b =~ s/\r?\n?$//;
+                if ($b eq '') {
+                } else {
+                    print $pd.$b."\n";
+                }
+            }  else {
+                print $pd.$f."\n";
+            }
+        }
         while(<$fh>) {
             s/\r?\n?$//;
             print $pd.$_."\n";
@@ -38,6 +56,7 @@ sub preserveLines {
 sub unfoldLines {
     my $pd = shift;
     my $fn = shift;
+    my $sv = shift;                         # sv: shave
     if (! -f $fn) {                         # -f: Entry is a plain file
         print STDERR "Error openning file: [".$fn."].\n";
         print    $pd."Error openning file: [".$fn."].\n";
@@ -45,31 +64,46 @@ sub unfoldLines {
     }
     my $ap = abs_path($fn);                 # ap: abs path
     if (&inList($ap, @_) == 1) {
-        &preserveLines($pd, $fn);
+        &preserveLines($pd, $fn, 0);
     } else {
         unshift(@_, $ap);
         open my $fh, '<', $fn or return;
+        if ($sv == 1) {
+            my $f = readline($fh);
+            $f =~ s/\r?\n?$//;
+            if ($f eq '---') {
+                while(<$fh>) {
+                    last if /^---\r?\n?$/;
+                }
+                my $b = readline($fh);
+                $b =~ s/\r?\n?$//;
+                if ($b eq '') {
+                } else {
+                    print $pd.$b."\n";
+                }
+            }  else {
+                print $pd.$f."\n";
+            }
+        }
         my $dn = dirname($fn);              # dn: dirname
         while(<$fh>) {
             s/\r?\n?$//;
-            if (/^(\s*)\@include <-=([^=]*)=$/) {
-                my $p = $1; my $f = $2;
+            if (/^(\s*)\@include <([-\/])=([^=]*)=$/) {
+                my $p = $1; my $s = $2; my $f = $3;
                 if ($f =~ /^.:/ or $f =~ /^\//) {
-                    &unfoldLines($pd.$p, $f, @_);
+                    &unfoldLines($pd.$p, $f, $s eq '/' ? 1 : 0, @_);
                 } else {
-                    &unfoldLines($pd.$p, $dn."/".$f, @_);
+                    &unfoldLines($pd.$p, $dn."/".$f, $s eq '/' ? 1 : 0, @_);
                 }
-            } elsif (/^(\s*)\%include <-=([^=]*)=$/) {
-                my $p = $1; my $f = $2;
+            } elsif (/^(\s*)\%include <([-\/])=([^=]*)=$/) {
+                my $p = $1; my $s = $2; my $f = $3;
                 if ($f =~ /^.:/ or $f =~ /^\//) {
-                    &preserveLines($pd.$p, $f);
+                    &preserveLines($pd.$p, $f, $s eq '/' ? 1 : 0);
                 } else {
-                    &preserveLines($pd.$p, $dn."/".$f);
+                    &preserveLines($pd.$p, $dn."/".$f, $s eq '/' ? 1 : 0);
                 }
-            } elsif (/^(?<p>\s*)\%\%include <-=(?<f>[^=]*)=$/) {
-                print $pd.$+{p}.'%include <-='.$+{f}."=\n";
-            } elsif (/^(?<p>\s*)\@\@include <-=(?<f>[^=]*)=$/) {
-                print $pd.$+{p}.'@include <-='.$+{f}."=\n";
+            } elsif (/^(?<p>\s*)(?<m>[\%\@])\2include <-=(?<f>[^=]*)=$/) {
+                print $pd.$+{p}.$+{m}.'include <-='.$+{f}."=\n";
             } else {
                 print $pd.$_."\n";
             }
@@ -78,7 +112,7 @@ sub unfoldLines {
 }
 
 if (-f $ARGV[0]) {
-    &unfoldLines("", $ARGV[0]);
+    &unfoldLines("", $ARGV[0], 0);
 } else {
     print STDERR "Error openning file: [".$ARGV[0]."].\n";
 }
