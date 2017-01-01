@@ -1,43 +1,34 @@
 [1mdiff --git a/result_cat.pl_.txt b/result_cat.jar_.txt[m
-[1mindex ff8c9c8..2c954f1 100644[m
+[1mindex ff8c9c8..bcd7117 100644[m
 [1m--- a/result_cat.pl_.txt[m
 [1m+++ b/result_cat.jar_.txt[m
-[36m@@ -1,665 +1,64 @@[m
-cat    a.txt # TEST LOOP (a<-b, b<-a)[m
+[36m@@ -4,25 +4,11 @@[m [ma.txt[m
 
-[31ma.txt[m
+    a <- b[m
 
-[31m    a <- b[m
-
-[31m    b.txt[m
+[31mb.txt[m
 
 [31m        b <- a[m
 
 [31m        a.txt[m
 
-[31m            a <- b[m
-
-[31m            @include <-=b.txt=[m
-
-[31m        a.end[m
+[31m            a <- b[m    @include <-=b.txt=[31ma.end[m
 
 [31m        中文。[m
 
 [31m    b.end[m
 
-[31ma.end[m
+a.end[m
 
-[31m中文。[m[32myy%%xx, yy[m
-[32myy@@xx, yy[m
+[31m中文。[m[32m���ġ�[m
 
 
 cat    c.txt # TEST MULTIPLE INCLUSIONS[m
+[36m@@ -31,43 +17,7 @@[m [mc.txt[m
 
-[31mc.txt[m
+    c <- da[m
 
-[31m    c <- da[m
-
-[31m    da.txt[m
+[31mda.txt[m
 
 [31m        da <- e[m
 
@@ -59,9 +50,7 @@ cat    c.txt # TEST MULTIPLE INCLUSIONS[m
 
 [31m                a.txt[m
 
-[31m                    a <- b[m
-
-[31m                    @include <-=b.txt=[m
+[31m                    a <- b[m    @include [31m<-=b.txt=[m
 
 [31m                a.end[m
 
@@ -73,19 +62,15 @@ cat    c.txt # TEST MULTIPLE INCLUSIONS[m
 
 [31m        中文。[m
 
-[31m    da.end[m
+[31m    da.end[m[32m<-=d/da.txt=[m
 
-[31mc.end[m[32myy%%xx, yy[m
-[32myy@@xx, yy[m
+c.end[m
 
+[36m@@ -78,41 +28,11 @@[m [mf.txt[m
 
-cat    f.txt # TEST EXPAND/NOT[m
+    f <- a (expand)[m
 
-[31mf.txt[m
-
-[31m    f <- a (expand)[m
-
-[31m    a.txt[m
+[31ma.txt[m
 
 [31m        a <- b[m
 
@@ -95,9 +80,7 @@ cat    f.txt # TEST EXPAND/NOT[m
 
 [31m            a.txt[m
 
-[31m                a <- b[m
-
-[31m                @include <-=b.txt=[m
+[31m                a <- b[m    @include [31m<-=b.txt=[m
 
 [31m            a.end[m
 
@@ -107,11 +90,11 @@ cat    f.txt # TEST EXPAND/NOT[m
 
 [31m    a.end[m
 
-[31m    中文。[m
+[31m    中文。[m[32m<-=a.txt=[m
 
-[31m    f <- a (not expand)[m
+    f <- a (not expand)[m
 
-[31m    a.txt[m
+    [31ma.txt[m
 
 [31m        a <- b[m
 
@@ -119,152 +102,174 @@ cat    f.txt # TEST EXPAND/NOT[m
 
 [31m    a.end[m
 
-[31m    中文。[m
+[31m    中文。[m[32m%include <-=a.txt=[m
 
-[31mf.end[m[32myy%%xx, yy[m
-[32myy@@xx, yy[m
+f.end[m
 
+[36m@@ -123,31 +43,11 @@[m [mg.txt[m
 
-cat    g.txt # SELF INCLUSION[m
+    g <- g (expand, won't work)[m
 
 [31mg.txt[m
 
-[31m    g <- g (expand, won't work)[m
-
-[31m    g.txt[m
-
-[31m        g <- g (expand, won't work)[m
-
-[31m        @include <-=g.txt=[m
-
-[31m        g <- g (not expand)[m
+[31m        g <- g (expand, won't work)[m    @include <-=g.txt=[31mg <- g (not expand)[m
 
 [31m        %include <-=g.txt=[m
 
 [31m    g.end[m
 
-[31m    g <- g (not expand)[m
+    g <- g (not expand)[m
 
-[31m    g.txt[m
+[31mg.txt[m
 
 [31m        g <- g (expand, won't work)[m
 
 [31m        @include <-=g.txt=[m
 
-[31m        g <- g (not expand)[m
+[31m        g <- g (not expand)[m    %include <-=g.txt=[31mg.end[m
 
-[31m        %include <-=g.txt=[m
+g.end[m
 
-[31m    g.end[m
+[36m@@ -158,11 +58,11 @@[m [mh.txt[m
 
-[31mg.end[m[32myy%%xx, yy[m
-[32myy@@xx, yy[m
+    h <- y (no such file to %)[m
 
+    [31mError openning file: [./y.txt].[m[32m@include <-=y.txt=[m
 
-cat    h.txt # NO SUCH FILE[m
+    h <- z (no such file to @)[m
 
-[31mh.txt[m
+    [31mError openning file: [./z.txt].[m[32m%include <-=z.txt=[m
 
-[31m    h <- y (no such file to %)[m
+h.end[m
 
-[31m    Error openning file: [./y.txt].[m
+[36m@@ -173,9 +73,25 @@[m [mi.txt[m
 
-[31m    h <- z (no such file to @)[m
+    reveal with @@include/%%include (verbatim)[m
 
-[31m    Error openning file: [./z.txt].[m
+    [31m%include <-=a.txt=[m[32ma.txt[m
 
-[31mh.end[m[32myy%%xx, yy[m
-[32myy@@xx, yy[m
+        [32ma <- b[m
 
+        @include [31m<-=a.txt=[m[32m<-=b.txt=[m
 
-cat    i.txt # VERBATIM[m
+[32m    a.end[m
 
-[31mi.txt[m
+[32m    ���ġ�[m
 
-[31m    reveal with @@include/%%include (verbatim)[m
+[32m    a.txt[m
 
-[31m    %include <-=a.txt=[m
+[32m        a <- b[m
 
-[31m    @include <-=a.txt=[m
+[32m        @include <-=b.txt=[m
 
-[31mi.end[m[32myy%%xx, yy[m
-[32myy@@xx, yy[m
+[32m    a.end[m
 
+[32m    ���ġ�[m
 
-cat    j.txt # ABSOLUTE PATH[m
+i.end[m
 
-[31mj.txt[m
+[36m@@ -186,41 +102,17 @@[m [mj.txt[m
 
-[31m    C:\Windows\System32\winrm.cmd (works on windows)[m
+    C:\Windows\System32\winrm.cmd (works on windows)[m
 
-[31m    @echo off[m
+    [31m@echo off[m
 [31m    IF EXIST %SystemRoot%\system32\cscript.exe ([m
 [31m        @cscript //nologo "%~dpn0.vbs" %*[m
 [31m    ) ELSE ([m
 [31m        echo.[m
 [31m        echo WinRM command line is not available on this system.[m
 [31m        exit /B 1[m
-[31m    )[m
+[31m    )[m[32m%include <-=C:\Windows\System32\winrm.cmd=[m
 
+    C:/Windows/System32/winrm.cmd (works on windows)[m
 
-[31m    C:/Windows/System32/winrm.cmd (works on windows)[m
-
-[31m    @echo off[m
+    [31m@echo off[m
 [31m    IF EXIST %SystemRoot%\system32\cscript.exe ([m
 [31m        @cscript //nologo "%~dpn0.vbs" %*[m
 [31m    ) ELSE ([m
 [31m        echo.[m
 [31m        echo WinRM command line is not available on this system.[m
 [31m        exit /B 1[m
-[31m    )[m
+[31m    )[m[32m%include <-=C:/Windows/System32/winrm.cmd=[m
 
+    C:\\Windows\\System32\\winrm.cmd (works on windows)[m
 
-[31m    C:\\Windows\\System32\\winrm.cmd (works on windows)[m
-
-[31m    @echo off[m
+    [31m@echo off[m
 [31m    IF EXIST %SystemRoot%\system32\cscript.exe ([m
 [31m        @cscript //nologo "%~dpn0.vbs" %*[m
 [31m    ) ELSE ([m
 [31m        echo.[m
 [31m        echo WinRM command line is not available on this system.[m
 [31m        exit /B 1[m
-[31m    )[m
+[31m    )[m[32m%include <-=C:\\Windows\\System32\\winrm.cmd=[m
 
+    [31mError openning file: [/etc/issue].[m[32m%include <-=/etc/issue=[m
 
-[31m    Error openning file: [/etc/issue].[m
+j.end[m
 
-[31mj.end[m[32myy%%xx, yy[m
-[32myy@@xx, yy[m
+[36m@@ -236,105 +128,70 @@[m [mm.txt[m
 
+    comment out:[m
 
-cat    m.txt # YAML HEADER[m
+    [32mm.txt[m
 
-[31m---[m
-[31mtitle: this is m.txt[m
-[31mauthor: tzx[m
-[31m---[m
+[32m        comment out:[m
+
+[32m        %%include </=m.txt=[m
+[32m        @@include </=m.txt=[m
+
+[32m        shave[m
+
+        %include </=m.txt=
+
+        [32mnot shave[m
+
+[32m        %include <-=m.txt=[m
+
+[32m        recursive a.txt[m
+
+        @include [32m<-=a.txt=[m
+
+[32m        preserve a.txt[m
+
+[32m        %include <-=a.txt=[m
+
+[32m    m.end[m
+[32m    m.txt[m
+
+[32m        comment out:[m
+
+[32m        %%include </=m.txt=[m
+[32m        @@include[m </=m.txt=
+
+        [32mshave[m
+
+[32m        %include </=m.txt=[m
+
+[32m        not shave[m
+
+[32m        %include <-=m.txt=[m
+
+[32m        recursive a.txt[m
+
+[32m        @include <-=a.txt=[m
+
+[32m        preserve a.txt[m
+
+[32m        %include <-=a.txt=[m
+
+[32m    m.end[m
+
+    shave[m
 
 [31mm.txt[m
-
-[31m    comment out:[m
-
-[31m    %include </=m.txt=[m
-[31m    @include </=m.txt=[m
-
-[31m    shave[m
-
-[31m    m.txt[m
 
 [31m        comment out:[m
 
 [31m        %%include </=m.txt=[m
 [31m        @@include </=m.txt=[m
 
-[31m        shave[m
-
-[31m        %include </=m.txt=[m
-
-[31m        not shave[m
+[31m        shave[m    %include </=m.txt=[31mnot shave[m
 
 [31m        %include <-=m.txt=[m
 
@@ -278,9 +283,9 @@ cat    m.txt # YAML HEADER[m
 
 [31m    m.end[m
 
-[31m    not shave[m
+    not shave[m
 
-[31m    ---[m
+[31m---[m
 [31m    title: this is m.txt[m
 [31m    author: tzx[m
 [31m    ---[m
@@ -296,11 +301,7 @@ cat    m.txt # YAML HEADER[m
 
 [31m        %include </=m.txt=[m
 
-[31m        not shave[m
-
-[31m        %include <-=m.txt=[m
-
-[31m        recursive a.txt[m
+[31m        not shave[m    %include <-=m.txt=[31mrecursive a.txt[m
 
 [31m        @include <-=a.txt=[m
 
@@ -310,9 +311,9 @@ cat    m.txt # YAML HEADER[m
 
 [31m    m.end[m
 
-[31m    recursive a.txt[m
+    recursive a.txt[m
 
-[31m    a.txt[m
+[31ma.txt[m
 
 [31m        a <- b[m
 
@@ -322,9 +323,7 @@ cat    m.txt # YAML HEADER[m
 
 [31m            a.txt[m
 
-[31m                a <- b[m
-
-[31m                @include <-=b.txt=[m
+[31m                a <- b[m    @include [31m<-=b.txt=[m
 
 [31m            a.end[m
 
@@ -334,11 +333,11 @@ cat    m.txt # YAML HEADER[m
 
 [31m    a.end[m
 
-[31m    中文。[m
+[31m    中文。[m[32m<-=a.txt=[m
 
-[31m    preserve a.txt[m
+    preserve a.txt[m
 
-[31m    a.txt[m
+    [31ma.txt[m
 
 [31m        a <- b[m
 
@@ -346,29 +345,21 @@ cat    m.txt # YAML HEADER[m
 
 [31m    a.end[m
 
-[31m    中文。[m
+[31m    中文。[m[32m%include <-=a.txt=[m
 
-[31mm.end[m[32myy%%xx, yy[m
-[32myy@@xx, yy[m
+m.end[m
 
+[36m@@ -345,45 +202,7 @@[m [mk1.txt[m
 
-cat    k1.txt # YAML HEADER[m
+    without yaml block (recursive)[m
 
-[31mk1.txt[m
-
-[31m    without yaml block (recursive)[m
-
-[31m    l1.txt[m
+[31ml1.txt[m
 
 [31m        without yaml block (recursive)[m
 
 [31m        k1.txt[m
 
-[31m            without yaml block (recursive)[m
-
-[31m            @include </=l1.txt=[m
-
-[31m        k1.end[m
+[31m            without yaml block (recursive)[m    @include </=l1.txt=[31mk1.end[m
 
 [31m        recursive include a.txt[m
 
@@ -398,17 +389,13 @@ cat    k1.txt # YAML HEADER[m
 
 [31m    l1.end[m
 
-[31mk1.end[m[32myy%%xx, yy[m
-[32myy@@xx, yy[m
+k1.end[m
 
+[36m@@ -394,24 +213,7 @@[m [mk2.txt[m
 
-cat    k2.txt # YAML HEADER[m
+    with yaml block (recursive)[m
 
-[31mk2.txt[m
-
-[31m    with yaml block (recursive)[m
-
-[31m    ---[m
+[31m---[m
 [31m    title: this is l2.txt[m
 [31m    author: tzx[m
 [31m    ---[m
@@ -419,35 +406,23 @@ cat    k2.txt # YAML HEADER[m
 
 [31m        k2.txt[m
 
-[31m            with yaml block (recursive)[m
-
-[31m            @include <-=l2.txt=[m
-
-[31m        k2.end[m
+[31m            with yaml block (recursive)[m    @include <-=l2.txt=[31mk2.end[m
 
 [31m    l2.end[m
 
-[31mk2.end[m[32myy%%xx, yy[m
-[32myy@@xx, yy[m
+k2.end[m
 
+[36m@@ -422,244 +224,18 @@[m [mk.txt[m
 
-cat    k.txt # YAML HEADER[m
+    without yaml block (recursive)[m
 
-[31mk.txt[m
-
-[31m    without yaml block (recursive)[m
-
-[31m    l.txt[m
+[31ml.txt[m
 
 [31m        without yaml block (recursive)[m
 
 [31m        k.txt[m
 
-[31m            without yaml block (recursive)[m
-
-[31m            @include </=l.txt=[m
-
-[31m            with yaml block (recursive)[m
+[31m            without yaml block (recursive)[m    @include </=l.txt=[31mwith yaml block (recursive)[m
 
 [31m            @include <-=l.txt=[m
 
@@ -529,9 +504,9 @@ cat    k.txt # YAML HEADER[m
 
 [31m    l.end[m
 
-[31m    with yaml block (recursive)[m
+    with yaml block (recursive)[m
 
-[31m    ---[m
+[31m---[m
 [31m    title: this is l.txt[m
 [31m    author: tzx[m
 [31m    ---[m
@@ -542,9 +517,7 @@ cat    k.txt # YAML HEADER[m
 
 [31m        k.txt[m
 
-[31m            without yaml block (recursive)[m
-
-[31m            @include </=l.txt=[m
+[31m            without yaml block (recursive)[m    @include[31m</=l.txt=[m
 
 [31m            with yaml block (recursive)[m
 
@@ -622,15 +595,13 @@ cat    k.txt # YAML HEADER[m
 
 [31m            with yaml block (preserve)[m
 
-[31m            %include <-=l.txt=[m
-
-[31m        k.end[m
+[31m            %include[m <-=l.txt=[31mk.end[m
 
 [31m    l.end[m
 
-[31m    without yaml block (preserve)[m
+    without yaml block (preserve)[m
 
-[31m    l.txt[m
+[31ml.txt[m
 
 [31m        without yaml block (recursive)[m
 
@@ -640,19 +611,17 @@ cat    k.txt # YAML HEADER[m
 
 [31m        @include <-=k.txt=[m
 
-[31m        without yaml block (preserve)[m
-
-[31m        %include </=k.txt=[m
+[31m        without yaml block (preserve)[m    %include [31m</=k.txt=[m
 
 [31m        with yaml block (preserve)[m
 
 [31m        %include <-=k.txt=[m
 
-[31m    l.end[m
+[31m    l.end[m[32m</=l.txt=[m
 
-[31m    with yaml block (preserve)[m
+    with yaml block (preserve)[m
 
-[31m    ---[m
+[31m---[m
 [31m    title: this is l.txt[m
 [31m    author: tzx[m
 [31m    ---[m
@@ -667,15 +636,12 @@ cat    k.txt # YAML HEADER[m
 
 [31m        @include <-=k.txt=[m
 
-[31m        without yaml block (preserve)[m
-
-[31m        %include </=k.txt=[m
+[31m        without yaml block (preserve)[m    %include [31m</=k.txt=[m
 
 [31m        with yaml block (preserve)[m
 
 [31m        %include <-=k.txt=[m
 
-[31m    l.end[m
+[31m    l.end[m[32m<-=l.txt=[m
 
-[31mk.end[m[32myy%%xx, yy[m
-[32myy@@xx, yy[m
+k.end[m

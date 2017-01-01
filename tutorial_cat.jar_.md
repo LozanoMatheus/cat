@@ -158,65 +158,242 @@ result_diff_.txt: result_cat.pl_.txt result_cat.jar_.txt
 
     cat    a.txt # TEST LOOP (a<-b, b<-a)
     
-    yy%%xx, yy
-    yy@@xx, yy
+    a.txt
+    
+        a <- b
+    
+        @include <-=b.txt=
+    
+    a.end
+    
+    中文。
     
     
     cat    c.txt # TEST MULTIPLE INCLUSIONS
     
-    yy%%xx, yy
-    yy@@xx, yy
+    c.txt
+    
+        c <- da
+    
+        @include <-=d/da.txt=
+    
+    c.end
     
     
     cat    f.txt # TEST EXPAND/NOT
     
-    yy%%xx, yy
-    yy@@xx, yy
+    f.txt
+    
+        f <- a (expand)
+    
+        @include <-=a.txt=
+    
+        f <- a (not expand)
+    
+        %include <-=a.txt=
+    
+    f.end
     
     
     cat    g.txt # SELF INCLUSION
     
-    yy%%xx, yy
-    yy@@xx, yy
+    g.txt
+    
+        g <- g (expand, won't work)
+    
+        @include <-=g.txt=
+    
+        g <- g (not expand)
+    
+        %include <-=g.txt=
+    
+    g.end
     
     
     cat    h.txt # NO SUCH FILE
     
-    yy%%xx, yy
-    yy@@xx, yy
+    h.txt
+    
+        h <- y (no such file to %)
+    
+        @include <-=y.txt=
+    
+        h <- z (no such file to @)
+    
+        %include <-=z.txt=
+    
+    h.end
     
     
     cat    i.txt # VERBATIM
     
-    yy%%xx, yy
-    yy@@xx, yy
+    i.txt
+    
+        reveal with @@include/%%include (verbatim)
+    
+        a.txt
+    
+            a <- b
+    
+            @include <-=b.txt=
+    
+        a.end
+    
+        中文。
+    
+        a.txt
+    
+            a <- b
+    
+            @include <-=b.txt=
+    
+        a.end
+    
+        中文。
+    
+    i.end
     
     
     cat    j.txt # ABSOLUTE PATH
     
-    yy%%xx, yy
-    yy@@xx, yy
+    j.txt
+    
+        C:\Windows\System32\winrm.cmd (works on windows)
+    
+        %include <-=C:\Windows\System32\winrm.cmd=
+    
+        C:/Windows/System32/winrm.cmd (works on windows)
+    
+        %include <-=C:/Windows/System32/winrm.cmd=
+    
+        C:\\Windows\\System32\\winrm.cmd (works on windows)
+    
+        %include <-=C:\\Windows\\System32\\winrm.cmd=
+    
+        %include <-=/etc/issue=
+    
+    j.end
     
     
     cat    m.txt # YAML HEADER
     
-    yy%%xx, yy
-    yy@@xx, yy
+    ---
+    title: this is m.txt
+    author: tzx
+    ---
+    
+    m.txt
+    
+        comment out:
+    
+        m.txt
+    
+            comment out:
+    
+            %%include </=m.txt=
+            @@include </=m.txt=
+    
+            shave
+    
+            %include </=m.txt=
+    
+            not shave
+    
+            %include <-=m.txt=
+    
+            recursive a.txt
+    
+            @include <-=a.txt=
+    
+            preserve a.txt
+    
+            %include <-=a.txt=
+    
+        m.end
+        m.txt
+    
+            comment out:
+    
+            %%include </=m.txt=
+            @@include </=m.txt=
+    
+            shave
+    
+            %include </=m.txt=
+    
+            not shave
+    
+            %include <-=m.txt=
+    
+            recursive a.txt
+    
+            @include <-=a.txt=
+    
+            preserve a.txt
+    
+            %include <-=a.txt=
+    
+        m.end
+    
+        shave
+    
+        %include </=m.txt=
+    
+        not shave
+    
+        %include <-=m.txt=
+    
+        recursive a.txt
+    
+        @include <-=a.txt=
+    
+        preserve a.txt
+    
+        %include <-=a.txt=
+    
+    m.end
     
     
     cat    k1.txt # YAML HEADER
     
-    yy%%xx, yy
-    yy@@xx, yy
+    k1.txt
+    
+        without yaml block (recursive)
+    
+        @include </=l1.txt=
+    
+    k1.end
     
     
     cat    k2.txt # YAML HEADER
     
-    yy%%xx, yy
-    yy@@xx, yy
+    k2.txt
+    
+        with yaml block (recursive)
+    
+        @include <-=l2.txt=
+    
+    k2.end
     
     
     cat    k.txt # YAML HEADER
     
-    yy%%xx, yy
-    yy@@xx, yy
+    k.txt
+    
+        without yaml block (recursive)
+    
+        @include </=l.txt=
+    
+        with yaml block (recursive)
+    
+        @include <-=l.txt=
+    
+        without yaml block (preserve)
+    
+        %include </=l.txt=
+    
+        with yaml block (preserve)
+    
+        %include <-=l.txt=
+    
+    k.end
