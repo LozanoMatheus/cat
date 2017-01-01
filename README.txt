@@ -23,13 +23,14 @@
     //      "D:\tzx\git\cat\README.md"
     //      "D:\\tzx\\git\\cat\\README.md"
     //      "D:/tzx/git/cat/README.md"
-    //      "~/git/cat/README.md"
+    //      "/etc/issue"
     //
     //  也可以是相对路径（相对于当前处理的文本），比如：
     //
     //      "test/a.txt"
     //      "test/d/../b.txt"
     //      "../blog/README"
+    //      "~/git/cat/README.md"
 
 这是一个比较 clean 的 cat.pl，已经相当强大，源码不多，贴在这里：
 

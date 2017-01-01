@@ -223,3 +223,252 @@ j.txt
     Error openning file: [/etc/issue].
 
 j.end
+
+
+cat    k.txt # YAML HEADER
+
+k.txt
+
+    with yaml block (preserve)
+
+    ---
+    title: this is l.txt
+    author: tzx
+    ---
+    
+    l.txt
+    
+        with yaml block (recursive)
+    
+        @include <-=k.txt=
+    
+        with yaml block (preserve)
+    
+        %include <-=k.txt=
+    
+        without yaml block (recursive)
+    
+        @include </=k.txt=
+    
+        without yaml block (preserve)
+    
+        %include </=k.txt=
+    
+    l.end
+
+    without yaml block (preserve)
+
+    l.txt
+    
+        with yaml block (recursive)
+    
+        @include <-=k.txt=
+    
+        with yaml block (preserve)
+    
+        %include <-=k.txt=
+    
+        without yaml block (recursive)
+    
+        @include </=k.txt=
+    
+        without yaml block (preserve)
+    
+        %include </=k.txt=
+    
+    l.end
+
+    with yaml block (recursive)
+
+    ---
+    title: this is l.txt
+    author: tzx
+    ---
+    
+    l.txt
+    
+        with yaml block (recursive)
+    
+        k.txt
+        
+            with yaml block (preserve)
+        
+            %include <-=l.txt=
+        
+            without yaml block (preserve)
+        
+            %include </=l.txt=
+        
+            with yaml block (recursive)
+        
+            @include <-=l.txt=
+        
+            without yaml block (recursive)
+        
+            @include </=l.txt=
+        
+        k.end
+    
+        with yaml block (preserve)
+    
+        k.txt
+        
+            with yaml block (preserve)
+        
+            %include <-=l.txt=
+        
+            without yaml block (preserve)
+        
+            %include </=l.txt=
+        
+            with yaml block (recursive)
+        
+            @include <-=l.txt=
+        
+            without yaml block (recursive)
+        
+            @include </=l.txt=
+        
+        k.end
+    
+        without yaml block (recursive)
+    
+        k.txt
+        
+            with yaml block (preserve)
+        
+            %include <-=l.txt=
+        
+            without yaml block (preserve)
+        
+            %include </=l.txt=
+        
+            with yaml block (recursive)
+        
+            @include <-=l.txt=
+        
+            without yaml block (recursive)
+        
+            @include </=l.txt=
+        
+        k.end
+    
+        without yaml block (preserve)
+    
+        k.txt
+        
+            with yaml block (preserve)
+        
+            %include <-=l.txt=
+        
+            without yaml block (preserve)
+        
+            %include </=l.txt=
+        
+            with yaml block (recursive)
+        
+            @include <-=l.txt=
+        
+            without yaml block (recursive)
+        
+            @include </=l.txt=
+        
+        k.end
+    
+    l.end
+
+    without yaml block (recursive)
+
+    l.txt
+    
+        with yaml block (recursive)
+    
+        k.txt
+        
+            with yaml block (preserve)
+        
+            %include <-=l.txt=
+        
+            without yaml block (preserve)
+        
+            %include </=l.txt=
+        
+            with yaml block (recursive)
+        
+            @include <-=l.txt=
+        
+            without yaml block (recursive)
+        
+            @include </=l.txt=
+        
+        k.end
+    
+        with yaml block (preserve)
+    
+        k.txt
+        
+            with yaml block (preserve)
+        
+            %include <-=l.txt=
+        
+            without yaml block (preserve)
+        
+            %include </=l.txt=
+        
+            with yaml block (recursive)
+        
+            @include <-=l.txt=
+        
+            without yaml block (recursive)
+        
+            @include </=l.txt=
+        
+        k.end
+    
+        without yaml block (recursive)
+    
+        k.txt
+        
+            with yaml block (preserve)
+        
+            %include <-=l.txt=
+        
+            without yaml block (preserve)
+        
+            %include </=l.txt=
+        
+            with yaml block (recursive)
+        
+            @include <-=l.txt=
+        
+            without yaml block (recursive)
+        
+            @include </=l.txt=
+        
+        k.end
+    
+        without yaml block (preserve)
+    
+        k.txt
+        
+            with yaml block (preserve)
+        
+            %include <-=l.txt=
+        
+            without yaml block (preserve)
+        
+            %include </=l.txt=
+        
+            with yaml block (recursive)
+        
+            @include <-=l.txt=
+        
+            without yaml block (recursive)
+        
+            @include </=l.txt=
+        
+        k.end
+    
+    l.end
+
+k.end
