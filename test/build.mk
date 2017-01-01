@@ -24,6 +24,10 @@ result_cat.pl_.txt: ../bin/cat.pl
 	perl ../bin/cat.pl j.txt                                    >> result_cat.pl_.txt
 	@echo -e "\n\ncat    m.txt # YAML HEADER\n"                 >> result_cat.pl_.txt
 	perl ../bin/cat.pl m.txt                                    >> result_cat.pl_.txt
+	@echo -e "\n\ncat    k1.txt # YAML HEADER\n"                >> result_cat.pl_.txt
+	perl ../bin/cat.pl k1.txt                                   >> result_cat.pl_.txt
+	@echo -e "\n\ncat    k2.txt # YAML HEADER\n"                >> result_cat.pl_.txt
+	perl ../bin/cat.pl k2.txt                                   >> result_cat.pl_.txt
 	@echo -e "\n\ncat    k.txt # YAML HEADER\n"                 >> result_cat.pl_.txt
 	perl ../bin/cat.pl k.txt                                    >> result_cat.pl_.txt
 	perl ../bin/trim.pl result_cat.pl_.txt > result_cat.pl_ && rm result_cat.pl_.txt
@@ -47,6 +51,10 @@ result_cat.jar_.txt: ../target/cat.jar
 	java -jar ../target/cat.jar j.txt                           >> result_cat.jar_.txt
 	@echo -e "\n\ncat    m.txt # YAML HEADER\n"                 >> result_cat.jar_.txt
 	java -jar ../target/cat.jar m.txt                           >> result_cat.jar_.txt
+	@echo -e "\n\ncat    k1.txt # YAML HEADER\n"                >> result_cat.jar_.txt
+	java -jar ../target/cat.jar k1.txt                          >> result_cat.jar_.txt
+	@echo -e "\n\ncat    k2.txt # YAML HEADER\n"                 >> result_cat.jar_.txt
+	java -jar ../target/cat.jar k2.txt                          >> result_cat.jar_.txt
 	@echo -e "\n\ncat    k.txt # YAML HEADER\n"                 >> result_cat.jar_.txt
 	java -jar ../target/cat.jar k.txt                           >> result_cat.jar_.txt
 	perl ../bin/trim.pl result_cat.jar_.txt > result_cat.jar_ && rm result_cat.jar_.txt

@@ -1,0 +1,16 @@
+---
+title: this is l1.txt
+author: tzx
+---
+
+l1.txt
+
+    without yaml block (recursive)
+
+    @include </=k1.txt=
+
+    recursive include a.txt
+
+    @include <-=a.txt=
+
+l1.end

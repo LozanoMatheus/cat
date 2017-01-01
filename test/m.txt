@@ -18,4 +18,12 @@ m.txt
 
     %include <-=m.txt=
 
+    recursive a.txt
+
+    @include <-=a.txt=
+
+    preserve a.txt
+
+    %include <-=a.txt=
+
 m.end

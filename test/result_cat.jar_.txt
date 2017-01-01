@@ -256,6 +256,14 @@ m.txt
 
         %include <-=m.txt=
 
+        recursive a.txt
+
+        @include <-=a.txt=
+
+        preserve a.txt
+
+        %include <-=a.txt=
+
     m.end
 
     not shave
@@ -280,61 +288,229 @@ m.txt
 
         %include <-=m.txt=
 
+        recursive a.txt
+
+        @include <-=a.txt=
+
+        preserve a.txt
+
+        %include <-=a.txt=
+
     m.end
 
+    recursive a.txt
+
+    a.txt
+
+        a <- b
+
+        b.txt
+
+            b <- a
+
+            a.txt
+
+                a <- b
+
+                @include <-=b.txt=
+
+            a.end
+
+            中文。
+
+        b.end
+
+    a.end
+
+    中文。
+
+    preserve a.txt
+
+    a.txt
+
+        a <- b
+
+        @include <-=b.txt=
+
+    a.end
+
+    中文。
+
 m.end
+
+
+cat    k1.txt # YAML HEADER
+
+k1.txt
+
+    without yaml block (recursive)
+
+    l1.txt
+
+        without yaml block (recursive)
+
+        k1.txt
+
+            without yaml block (recursive)
+
+            @include </=l1.txt=
+
+        k1.end
+
+        recursive include a.txt
+
+        a.txt
+
+            a <- b
+
+            b.txt
+
+                b <- a
+
+                a.txt
+
+                    a <- b
+
+                    @include <-=b.txt=
+
+                a.end
+
+                中文。
+
+            b.end
+
+        a.end
+
+        中文。
+
+    l1.end
+
+k1.end
+
+
+cat    k2.txt # YAML HEADER
+
+k2.txt
+
+    with yaml block (recursive)
+
+    ---
+    title: this is l2.txt
+    author: tzx
+    ---
+
+    l2.txt
+
+        with yaml block (recursive)
+
+        k2.txt
+
+            with yaml block (recursive)
+
+            @include <-=l2.txt=
+
+        k2.end
+
+    l2.end
+
+k2.end
 
 
 cat    k.txt # YAML HEADER
 
 k.txt
 
-    with yaml block (preserve)
-
-    ---
-    title: this is l.txt
-    author: tzx
-    ---
+    without yaml block (recursive)
 
     l.txt
 
-        with yaml block (recursive)
-
-        @include <-=k.txt=
-
-        with yaml block (preserve)
-
-        %include <-=k.txt=
-
         without yaml block (recursive)
 
-        @include </=k.txt=
+        k.txt
+
+            without yaml block (recursive)
+
+            @include </=l.txt=
+
+            with yaml block (recursive)
+
+            @include <-=l.txt=
+
+            without yaml block (preserve)
+
+            %include </=l.txt=
+
+            with yaml block (preserve)
+
+            %include <-=l.txt=
+
+        k.end
+
+        with yaml block (recursive)
+
+        k.txt
+
+            without yaml block (recursive)
+
+            @include </=l.txt=
+
+            with yaml block (recursive)
+
+            @include <-=l.txt=
+
+            without yaml block (preserve)
+
+            %include </=l.txt=
+
+            with yaml block (preserve)
+
+            %include <-=l.txt=
+
+        k.end
 
         without yaml block (preserve)
 
-        %include </=k.txt=
+        k.txt
 
-    l.end
+            without yaml block (recursive)
 
-    without yaml block (preserve)
+            @include </=l.txt=
 
-    l.txt
+            with yaml block (recursive)
 
-        with yaml block (recursive)
+            @include <-=l.txt=
 
-        @include <-=k.txt=
+            without yaml block (preserve)
+
+            %include </=l.txt=
+
+            with yaml block (preserve)
+
+            %include <-=l.txt=
+
+        k.end
 
         with yaml block (preserve)
 
-        %include <-=k.txt=
+        k.txt
 
-        without yaml block (recursive)
+            without yaml block (recursive)
 
-        @include </=k.txt=
+            @include </=l.txt=
 
-        without yaml block (preserve)
+            with yaml block (recursive)
 
-        %include </=k.txt=
+            @include <-=l.txt=
+
+            without yaml block (preserve)
+
+            %include </=l.txt=
+
+            with yaml block (preserve)
+
+            %include <-=l.txt=
+
+        k.end
 
     l.end
 
@@ -347,115 +523,70 @@ k.txt
 
     l.txt
 
-        with yaml block (recursive)
-
-        k.txt
-
-            with yaml block (preserve)
-
-            %include <-=l.txt=
-
-            without yaml block (preserve)
-
-            %include </=l.txt=
-
-            with yaml block (recursive)
-
-            @include <-=l.txt=
-
-            without yaml block (recursive)
-
-            @include </=l.txt=
-
-        k.end
-
-        with yaml block (preserve)
-
-        k.txt
-
-            with yaml block (preserve)
-
-            %include <-=l.txt=
-
-            without yaml block (preserve)
-
-            %include </=l.txt=
-
-            with yaml block (recursive)
-
-            @include <-=l.txt=
-
-            without yaml block (recursive)
-
-            @include </=l.txt=
-
-        k.end
-
         without yaml block (recursive)
 
-        k.txt
-
-            with yaml block (preserve)
-
-            %include <-=l.txt=
-
-            without yaml block (preserve)
-
-            %include </=l.txt=
-
-            with yaml block (recursive)
-
-            @include <-=l.txt=
-
-            without yaml block (recursive)
-
-            @include </=l.txt=
-
-        k.end
-
-        without yaml block (preserve)
-
-        k.txt
-
-            with yaml block (preserve)
-
-            %include <-=l.txt=
-
-            without yaml block (preserve)
-
-            %include </=l.txt=
-
-            with yaml block (recursive)
-
-            @include <-=l.txt=
-
-            without yaml block (recursive)
-
-            @include </=l.txt=
-
-        k.end
-
-    l.end
-
-    without yaml block (recursive)
-
-    l.txt
+        @include </=k.txt=
 
         with yaml block (recursive)
 
         @include <-=k.txt=
 
+        without yaml block (preserve)
+
+        %include </=k.txt=
+
         with yaml block (preserve)
 
         %include <-=k.txt=
+
+    l.end
+
+    without yaml block (preserve)
+
+    l.txt
 
         without yaml block (recursive)
 
         @include </=k.txt=
 
+        with yaml block (recursive)
+
+        @include <-=k.txt=
+
         without yaml block (preserve)
 
         %include </=k.txt=
+
+        with yaml block (preserve)
+
+        %include <-=k.txt=
+
+    l.end
+
+    with yaml block (preserve)
+
+    ---
+    title: this is l.txt
+    author: tzx
+    ---
+
+    l.txt
+
+        without yaml block (recursive)
+
+        @include </=k.txt=
+
+        with yaml block (recursive)
+
+        @include <-=k.txt=
+
+        without yaml block (preserve)
+
+        %include </=k.txt=
+
+        with yaml block (preserve)
+
+        %include <-=k.txt=
 
     l.end
 

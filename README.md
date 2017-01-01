@@ -1,31 +1,31 @@
 # cat
 
-`bin` ����� [`cat.pl`](bin/cat.pl) ���� `cat` ���ָ��һ����
-���������ӣ��ϲ�������ļ����� `cat` �Ǻ���غϲ���`cat.pl` ������غϲ���
+`bin` 下面的 [`cat.pl`](bin/cat.pl) 就像 `cat` 这个指令一样，
+它可以连接（合并）多个文件，但 `cat` 是横向地合并，`cat.pl` 是纵向地合并。
 
-ʹ�÷���Ϊ��
+使用方法为：
 
-    // �ݹ�����������ļ���(mnemonics/�ɼǷ�: `@` ����Ϊ�ݹ�)
+    // 递归地引入其它文件：(mnemonics/巧记法: `@` 象形为递归)
 
     @include <-=path=
 
-    // ԭ�������������ļ���(mnemonics: `%` **p**ercent/�ٷֺ� ---> **p**reserve/����)
+    // 原样地引入其它文件：(mnemonics: `%` **p**ercent/百分号 ---> **p**reserve/保留)
 
     %include <-=path=
 
     // Verbatim
 
-    "@@include <-=path=" ���� "@include <-=path="
-    "%%include <-=path=" ���� "%include <-=path="
+    "@@include <-=path=" 会变成 "@include <-=path="
+    "%%include <-=path=" 会变成 "%include <-=path="
 
-    //  path �����Ǿ���·�������磺
+    //  path 可以是绝对路径，比如：
     //
     //      "D:\tzx\git\cat\README.md"
     //      "D:\\tzx\\git\\cat\\README.md"
     //      "D:/tzx/git/cat/README.md"
     //      "/etc/issue"
     //
-    //  Ҳ���������·��������ڵ�ǰ�������ı��������磺
+    //  也可以是相对路径（相对于当前处理的文本），比如：
     //
     //      "test/a.txt"
     //      "test/d/../b.txt"
@@ -34,7 +34,7 @@
 
 ---
 
-����һ���Ƚ� clean �� cat.pl���Ѿ��൱ǿ��Դ�벻�࣬������������ϲ�����棩��
+这是一个比较 clean 的 cat.pl，已经相当强大，源码不多，贴在这里（如果你喜欢简洁版）：
 
 ```perl
 #!/usr/bin/perl
@@ -125,9 +125,9 @@ if (-f $ARGV[0]) {
 
 ---
 
-������[`cat.pl`](bin/cat.pl) ���ˡ�ȥ�� yaml ͷ���Ĺ��ܣ��ͱ��ӷ����һ�㡣
+后来，[`cat.pl`](bin/cat.pl) 有了【去除 yaml 头】的功能，就变得臃肿了一点。
 
-`cat.jar` ʵ�������ƵĹ��ܣ�ʹ�� `make` ������ jar ���������ߵı��ּ���һ�¡�
-ʹ��ʵ����
-[`tutorial_cat.jar_.md`](tutorial_cat.jar_.md) ��
-[`tutorial_cat.pl_.md`](tutorial_cat.pl_.md)��
+`cat.jar` 实现了类似的功能（使用 `make` 来生成 jar 包），两者的表现几乎一致。
+使用实例见
+[`tutorial_cat.jar_.md`](tutorial_cat.jar_.md) 和
+[`tutorial_cat.pl_.md`](tutorial_cat.pl_.md)。

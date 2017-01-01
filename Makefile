@@ -15,8 +15,8 @@ target/cat.jar: $(wildcard src/main/java/com/tangzhixiong/cat/*.java)
 
 test: target/cat.jar
 	make -C test -f build.mk
-%.md: target/cat.jar %.txt
-	java -jar $^ > $@
+%.md: bin/cat.pl %.txt
+	perl $^ > $@
 
 test1: target/cat.jar
 	@echo test simple inclusion.

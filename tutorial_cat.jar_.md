@@ -1,4 +1,4 @@
-±ÈÈçÓĞÒÔÏÂÎÄ¼ş£º
+æ¯”å¦‚æœ‰ä»¥ä¸‹æ–‡ä»¶ï¼š
 
 [`test/a.txt`](test/a.txt)
 
@@ -10,7 +10,7 @@
     
     a.end
     
-    ÖĞÎÄ¡£
+    ä¸­æ–‡ã€‚
 
 [`test/b.txt`](test/b.txt)
 
@@ -82,7 +82,7 @@
     
     g.end
 
-Í¨¹ı Makefile£¨[`test/build.mk`](test/build.mk)£©£º
+é€šè¿‡ Makefileï¼ˆ[`test/build.mk`](test/build.mk)ï¼‰ï¼š
 
 ```makefile
 .PHONY: clean
@@ -111,6 +111,10 @@ result_cat.pl_.txt: ../bin/cat.pl
 	perl ../bin/cat.pl j.txt                                    >> result_cat.pl_.txt
 	@echo -e "\n\ncat    m.txt # YAML HEADER\n"                 >> result_cat.pl_.txt
 	perl ../bin/cat.pl m.txt                                    >> result_cat.pl_.txt
+	@echo -e "\n\ncat    k1.txt # YAML HEADER\n"                >> result_cat.pl_.txt
+	perl ../bin/cat.pl k1.txt                                   >> result_cat.pl_.txt
+	@echo -e "\n\ncat    k2.txt # YAML HEADER\n"                >> result_cat.pl_.txt
+	perl ../bin/cat.pl k2.txt                                   >> result_cat.pl_.txt
 	@echo -e "\n\ncat    k.txt # YAML HEADER\n"                 >> result_cat.pl_.txt
 	perl ../bin/cat.pl k.txt                                    >> result_cat.pl_.txt
 	perl ../bin/trim.pl result_cat.pl_.txt > result_cat.pl_ && rm result_cat.pl_.txt
@@ -134,6 +138,10 @@ result_cat.jar_.txt: ../target/cat.jar
 	java -jar ../target/cat.jar j.txt                           >> result_cat.jar_.txt
 	@echo -e "\n\ncat    m.txt # YAML HEADER\n"                 >> result_cat.jar_.txt
 	java -jar ../target/cat.jar m.txt                           >> result_cat.jar_.txt
+	@echo -e "\n\ncat    k1.txt # YAML HEADER\n"                >> result_cat.jar_.txt
+	java -jar ../target/cat.jar k1.txt                          >> result_cat.jar_.txt
+	@echo -e "\n\ncat    k2.txt # YAML HEADER\n"                 >> result_cat.jar_.txt
+	java -jar ../target/cat.jar k2.txt                          >> result_cat.jar_.txt
 	@echo -e "\n\ncat    k.txt # YAML HEADER\n"                 >> result_cat.jar_.txt
 	java -jar ../target/cat.jar k.txt                           >> result_cat.jar_.txt
 	perl ../bin/trim.pl result_cat.jar_.txt > result_cat.jar_ && rm result_cat.jar_.txt
@@ -146,5 +154,598 @@ result_diff_.txt: result_cat.pl_.txt result_cat.jar_.txt
 	git diff --no-index --color-words --patience -- $^ > $@ || :
 ```
 
-Éú³ÉµÄ [`test/result_cat.jar_.txt`](test/result_cat.jar_.txt) Îª£º
+ç”Ÿæˆçš„ [`test/result_cat.jar_.txt`](test/result_cat.jar_.txt) ä¸ºï¼š
 
+    cat    a.txt # TEST LOOP (a<-b, b<-a)
+    
+    a.txt
+    
+        a <- b
+    
+        b.txt
+    
+            b <- a
+    
+            a.txt
+    
+                a <- b
+    
+                @include <-=b.txt=
+    
+            a.end
+    
+            ÖĞÎÄ¡£
+    
+        b.end
+    
+    a.end
+    
+    ÖĞÎÄ¡£
+    
+    
+    cat    c.txt # TEST MULTIPLE INCLUSIONS
+    
+    c.txt
+    
+        c <- da
+    
+        da.txt
+    
+            da <- e
+    
+            e.txt
+    
+            (nothing here in e.txt)
+    
+            e.end
+    
+            da <- a
+    
+            a.txt
+    
+                a <- b
+    
+                b.txt
+    
+                    b <- a
+    
+                    a.txt
+    
+                        a <- b
+    
+                        @include <-=b.txt=
+    
+                    a.end
+    
+                    ÖĞÎÄ¡£
+    
+                b.end
+    
+            a.end
+    
+            ÖĞÎÄ¡£
+    
+        da.end
+    
+    c.end
+    
+    
+    cat    f.txt # TEST EXPAND/NOT
+    
+    f.txt
+    
+        f <- a (expand)
+    
+        a.txt
+    
+            a <- b
+    
+            b.txt
+    
+                b <- a
+    
+                a.txt
+    
+                    a <- b
+    
+                    @include <-=b.txt=
+    
+                a.end
+    
+                ÖĞÎÄ¡£
+    
+            b.end
+    
+        a.end
+    
+        ÖĞÎÄ¡£
+    
+        f <- a (not expand)
+    
+        a.txt
+    
+            a <- b
+    
+            @include <-=b.txt=
+    
+        a.end
+    
+        ÖĞÎÄ¡£
+    
+    f.end
+    
+    
+    cat    g.txt # SELF INCLUSION
+    
+    g.txt
+    
+        g <- g (expand, won't work)
+    
+        g.txt
+    
+            g <- g (expand, won't work)
+    
+            @include <-=g.txt=
+    
+            g <- g (not expand)
+    
+            %include <-=g.txt=
+    
+        g.end
+    
+        g <- g (not expand)
+    
+        g.txt
+    
+            g <- g (expand, won't work)
+    
+            @include <-=g.txt=
+    
+            g <- g (not expand)
+    
+            %include <-=g.txt=
+    
+        g.end
+    
+    g.end
+    
+    
+    cat    h.txt # NO SUCH FILE
+    
+    h.txt
+    
+        h <- y (no such file to %)
+    
+        Error openning file: [y.txt].
+    
+        h <- z (no such file to @)
+    
+        Error openning file: [z.txt].
+    
+    h.end
+    
+    
+    cat    i.txt # VERBATIM
+    
+    i.txt
+    
+        reveal with @@include/%%include (verbatim)
+    
+        %include <-=a.txt=
+    
+        @include <-=a.txt=
+    
+    i.end
+    
+    
+    cat    j.txt # ABSOLUTE PATH
+    
+    j.txt
+    
+        C:\Windows\System32\winrm.cmd (works on windows)
+    
+        @echo off
+        IF EXIST %SystemRoot%\system32\cscript.exe (
+            @cscript //nologo "%~dpn0.vbs" %*
+        ) ELSE (
+            echo.
+            echo WinRM command line is not available on this system.
+            exit /B 1
+        )
+    
+    
+        C:/Windows/System32/winrm.cmd (works on windows)
+    
+        @echo off
+        IF EXIST %SystemRoot%\system32\cscript.exe (
+            @cscript //nologo "%~dpn0.vbs" %*
+        ) ELSE (
+            echo.
+            echo WinRM command line is not available on this system.
+            exit /B 1
+        )
+    
+    
+        C:\\Windows\\System32\\winrm.cmd (works on windows)
+    
+        @echo off
+        IF EXIST %SystemRoot%\system32\cscript.exe (
+            @cscript //nologo "%~dpn0.vbs" %*
+        ) ELSE (
+            echo.
+            echo WinRM command line is not available on this system.
+            exit /B 1
+        )
+    
+    
+        Error openning file: [/etc/issue].
+    
+    j.end
+    
+    
+    cat    m.txt # YAML HEADER
+    
+    ---
+    title: this is m.txt
+    author: tzx
+    ---
+    
+    m.txt
+    
+        comment out:
+    
+        %include </=m.txt=
+        @include </=m.txt=
+    
+        shave
+    
+        m.txt
+    
+            comment out:
+    
+            %%include </=m.txt=
+            @@include </=m.txt=
+    
+            shave
+    
+            %include </=m.txt=
+    
+            not shave
+    
+            %include <-=m.txt=
+    
+            recursive a.txt
+    
+            @include <-=a.txt=
+    
+            preserve a.txt
+    
+            %include <-=a.txt=
+    
+        m.end
+    
+        not shave
+    
+        ---
+        title: this is m.txt
+        author: tzx
+        ---
+    
+        m.txt
+    
+            comment out:
+    
+            %%include </=m.txt=
+            @@include </=m.txt=
+    
+            shave
+    
+            %include </=m.txt=
+    
+            not shave
+    
+            %include <-=m.txt=
+    
+            recursive a.txt
+    
+            @include <-=a.txt=
+    
+            preserve a.txt
+    
+            %include <-=a.txt=
+    
+        m.end
+    
+        recursive a.txt
+    
+        a.txt
+    
+            a <- b
+    
+            b.txt
+    
+                b <- a
+    
+                a.txt
+    
+                    a <- b
+    
+                    @include <-=b.txt=
+    
+                a.end
+    
+                ÖĞÎÄ¡£
+    
+            b.end
+    
+        a.end
+    
+        ÖĞÎÄ¡£
+    
+        preserve a.txt
+    
+        a.txt
+    
+            a <- b
+    
+            @include <-=b.txt=
+    
+        a.end
+    
+        ÖĞÎÄ¡£
+    
+    m.end
+    
+    
+    cat    k1.txt # YAML HEADER
+    
+    k1.txt
+    
+        without yaml block (recursive)
+    
+        l1.txt
+    
+            without yaml block (recursive)
+    
+            k1.txt
+    
+                without yaml block (recursive)
+    
+                @include </=l1.txt=
+    
+            k1.end
+    
+            recursive include a.txt
+    
+            a.txt
+    
+                a <- b
+    
+                b.txt
+    
+                    b <- a
+    
+                    a.txt
+    
+                        a <- b
+    
+                        @include <-=b.txt=
+    
+                    a.end
+    
+                    ÖĞÎÄ¡£
+    
+                b.end
+    
+            a.end
+    
+            ÖĞÎÄ¡£
+    
+        l1.end
+    
+    k1.end
+    
+    
+    cat    k2.txt # YAML HEADER
+    
+    k2.txt
+    
+        with yaml block (recursive)
+    
+        ---
+        title: this is l2.txt
+        author: tzx
+        ---
+    
+        l2.txt
+    
+            with yaml block (recursive)
+    
+            k2.txt
+    
+                with yaml block (recursive)
+    
+                @include <-=l2.txt=
+    
+            k2.end
+    
+        l2.end
+    
+    k2.end
+    
+    
+    cat    k.txt # YAML HEADER
+    
+    k.txt
+    
+        without yaml block (recursive)
+    
+        l.txt
+    
+            without yaml block (recursive)
+    
+            k.txt
+    
+                without yaml block (recursive)
+    
+                @include </=l.txt=
+    
+                with yaml block (recursive)
+    
+                @include <-=l.txt=
+    
+                without yaml block (preserve)
+    
+                %include </=l.txt=
+    
+                with yaml block (preserve)
+    
+                %include <-=l.txt=
+    
+            k.end
+    
+            with yaml block (recursive)
+    
+            k.txt
+    
+                without yaml block (recursive)
+    
+                @include </=l.txt=
+    
+                with yaml block (recursive)
+    
+                @include <-=l.txt=
+    
+                without yaml block (preserve)
+    
+                %include </=l.txt=
+    
+                with yaml block (preserve)
+    
+                %include <-=l.txt=
+    
+            k.end
+    
+            without yaml block (preserve)
+    
+            k.txt
+    
+                without yaml block (recursive)
+    
+                @include </=l.txt=
+    
+                with yaml block (recursive)
+    
+                @include <-=l.txt=
+    
+                without yaml block (preserve)
+    
+                %include </=l.txt=
+    
+                with yaml block (preserve)
+    
+                %include <-=l.txt=
+    
+            k.end
+    
+            with yaml block (preserve)
+    
+            k.txt
+    
+                without yaml block (recursive)
+    
+                @include </=l.txt=
+    
+                with yaml block (recursive)
+    
+                @include <-=l.txt=
+    
+                without yaml block (preserve)
+    
+                %include </=l.txt=
+    
+                with yaml block (preserve)
+    
+                %include <-=l.txt=
+    
+            k.end
+    
+        l.end
+    
+        with yaml block (recursive)
+    
+        ---
+        title: this is l.txt
+        author: tzx
+        ---
+    
+        l.txt
+    
+            without yaml block (recursive)
+    
+            @include </=k.txt=
+    
+            with yaml block (recursive)
+    
+            @include <-=k.txt=
+    
+            without yaml block (preserve)
+    
+            %include </=k.txt=
+    
+            with yaml block (preserve)
+    
+            %include <-=k.txt=
+    
+        l.end
+    
+        without yaml block (preserve)
+    
+        l.txt
+    
+            without yaml block (recursive)
+    
+            @include </=k.txt=
+    
+            with yaml block (recursive)
+    
+            @include <-=k.txt=
+    
+            without yaml block (preserve)
+    
+            %include </=k.txt=
+    
+            with yaml block (preserve)
+    
+            %include <-=k.txt=
+    
+        l.end
+    
+        with yaml block (preserve)
+    
+        ---
+        title: this is l.txt
+        author: tzx
+        ---
+    
+        l.txt
+    
+            without yaml block (recursive)
+    
+            @include </=k.txt=
+    
+            with yaml block (recursive)
+    
+            @include <-=k.txt=
+    
+            without yaml block (preserve)
+    
+            %include </=k.txt=
+    
+            with yaml block (preserve)
+    
+            %include <-=k.txt=
+    
+        l.end
+    
+    k.end

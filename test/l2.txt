@@ -1,0 +1,12 @@
+---
+title: this is l2.txt
+author: tzx
+---
+
+l2.txt
+
+    with yaml block (recursive)
+
+    @include <-=k2.txt=
+
+l2.end

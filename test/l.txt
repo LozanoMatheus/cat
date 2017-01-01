@@ -5,20 +5,20 @@ author: tzx
 
 l.txt
 
-    with yaml block (recursive)
-
-    @include <-=k.txt=
-
-    with yaml block (preserve)
-
-    %include <-=k.txt=
-
     without yaml block (recursive)
 
     @include </=k.txt=
 
+    with yaml block (recursive)
+
+    @include <-=k.txt=
+
     without yaml block (preserve)
 
     %include </=k.txt=
+
+    with yaml block (preserve)
+
+    %include <-=k.txt=
 
 l.end

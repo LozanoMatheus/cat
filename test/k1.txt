@@ -1,0 +1,7 @@
+k1.txt
+
+    without yaml block (recursive)
+
+    @include </=l1.txt=
+
+k1.end
