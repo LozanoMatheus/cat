@@ -1,67 +1,23 @@
 .PHONY: clean
 
-outputs := result_cat.pl_.txt result_cat.jar_.txt result_diff_.txt
+entries := a.txt b.txt c.txt f.txt g.txt h.txt i.txt j.txt k1.txt k2.txt m.txt k.txt
+entries_j := $(entries:%.txt=%.jar.md)
+entries_p := $(entries:%.txt=%.pl.md)
+outputs := result_cat.pl_.md result_cat.jar_.md result_diff_.md $(entries_j) $(entries_p)
 
 all: $(outputs)
 clean:
 	rm -f $(outputs)
 
-result_cat.pl_.txt: ../bin/cat.pl
-	rm -f result_cat.pl_.txt
-	@echo -e "cat    a.txt # TEST LOOP (a<-b, b<-a)\n"          >> result_cat.pl_.txt
-	perl ../bin/cat.pl a.txt                                    >> result_cat.pl_.txt
-	@echo -e "\n\ncat    c.txt # TEST MULTIPLE INCLUSIONS\n"    >> result_cat.pl_.txt
-	perl ../bin/cat.pl c.txt                                    >> result_cat.pl_.txt
-	@echo -e "\n\ncat    f.txt # TEST EXPAND/NOT\n"             >> result_cat.pl_.txt
-	perl ../bin/cat.pl f.txt                                    >> result_cat.pl_.txt
-	@echo -e "\n\ncat    g.txt # SELF INCLUSION\n"              >> result_cat.pl_.txt
-	perl ../bin/cat.pl g.txt                                    >> result_cat.pl_.txt
-	@echo -e "\n\ncat    h.txt # NO SUCH FILE\n"                >> result_cat.pl_.txt
-	perl ../bin/cat.pl h.txt                                    >> result_cat.pl_.txt
-	@echo -e "\n\ncat    i.txt # VERBATIM\n"                    >> result_cat.pl_.txt
-	perl ../bin/cat.pl i.txt                                    >> result_cat.pl_.txt
-	@echo -e "\n\ncat    j.txt # ABSOLUTE PATH\n"               >> result_cat.pl_.txt
-	perl ../bin/cat.pl j.txt                                    >> result_cat.pl_.txt
-	@echo -e "\n\ncat    m.txt # YAML HEADER\n"                 >> result_cat.pl_.txt
-	perl ../bin/cat.pl m.txt                                    >> result_cat.pl_.txt
-	@echo -e "\n\ncat    k1.txt # YAML HEADER\n"                >> result_cat.pl_.txt
-	perl ../bin/cat.pl k1.txt                                   >> result_cat.pl_.txt
-	@echo -e "\n\ncat    k2.txt # YAML HEADER\n"                >> result_cat.pl_.txt
-	perl ../bin/cat.pl k2.txt                                   >> result_cat.pl_.txt
-	@echo -e "\n\ncat    k.txt # YAML HEADER\n"                 >> result_cat.pl_.txt
-	perl ../bin/cat.pl k.txt                                    >> result_cat.pl_.txt
-	perl ../bin/trim.pl result_cat.pl_.txt > result_cat.pl_ && rm result_cat.pl_.txt
-	mv result_cat.pl_ result_cat.pl_.txt
-
-result_cat.jar_.txt: ../target/cat.jar
-	rm -f result_cat.jar_.txt
-	@echo -e "cat    a.txt # TEST LOOP (a<-b, b<-a)\n"          >> result_cat.jar_.txt
-	java -jar ../target/cat.jar a.txt                           >> result_cat.jar_.txt
-	@echo -e "\n\ncat    c.txt # TEST MULTIPLE INCLUSIONS\n"    >> result_cat.jar_.txt
-	java -jar ../target/cat.jar c.txt                           >> result_cat.jar_.txt
-	@echo -e "\n\ncat    f.txt # TEST EXPAND/NOT\n"             >> result_cat.jar_.txt
-	java -jar ../target/cat.jar f.txt                           >> result_cat.jar_.txt
-	@echo -e "\n\ncat    g.txt # SELF INCLUSION\n"              >> result_cat.jar_.txt
-	java -jar ../target/cat.jar g.txt                           >> result_cat.jar_.txt
-	@echo -e "\n\ncat    h.txt # NO SUCH FILE\n"                >> result_cat.jar_.txt
-	java -jar ../target/cat.jar h.txt                           >> result_cat.jar_.txt
-	@echo -e "\n\ncat    i.txt # VERBATIM\n"                    >> result_cat.jar_.txt
-	java -jar ../target/cat.jar i.txt                           >> result_cat.jar_.txt
-	@echo -e "\n\ncat    j.txt # ABSOLUTE PATH\n"               >> result_cat.jar_.txt
-	java -jar ../target/cat.jar j.txt                           >> result_cat.jar_.txt
-	@echo -e "\n\ncat    m.txt # YAML HEADER\n"                 >> result_cat.jar_.txt
-	java -jar ../target/cat.jar m.txt                           >> result_cat.jar_.txt
-	@echo -e "\n\ncat    k1.txt # YAML HEADER\n"                >> result_cat.jar_.txt
-	java -jar ../target/cat.jar k1.txt                          >> result_cat.jar_.txt
-	@echo -e "\n\ncat    k2.txt # YAML HEADER\n"                 >> result_cat.jar_.txt
-	java -jar ../target/cat.jar k2.txt                          >> result_cat.jar_.txt
-	@echo -e "\n\ncat    k.txt # YAML HEADER\n"                 >> result_cat.jar_.txt
-	java -jar ../target/cat.jar k.txt                           >> result_cat.jar_.txt
-	perl ../bin/trim.pl result_cat.jar_.txt > result_cat.jar_ && rm result_cat.jar_.txt
-	mv result_cat.jar_ result_cat.jar_.txt
-
 ../target/cat.jar:
 	cd .. && mvn package
-
-result_diff_.txt: result_cat.pl_.txt result_cat.jar_.txt
-	git diff --no-index --color-words --patience -- $^ > $@ || :
+result_cat.pl_.md: ../bin/cat.pl result_cat.pl_.txt $(entries_p)
+	perl $^ > $@
+result_cat.jar_.md: ../target/cat.jar result_cat.jar_.txt $(entries_j)
+	java -jar $^ > $@
+result_diff_.md: result_cat.pl_.md result_cat.jar_.md
+	git diff --no-index --color-words --patience -- $^ > $@ 2> /dev/null || :
+%.jar.md: ../target/cat.jar %.txt
+	java -jar $^ | perl ../bin/trim.pl | cat -n > $@
+%.pl.md: ../bin/cat.pl %.txt
+	perl $^      | perl ../bin/trim.pl | cat -n > $@

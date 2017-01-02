@@ -1,2 +1,3 @@
 local-js:
   - ansi_up.js
+  - _main.js

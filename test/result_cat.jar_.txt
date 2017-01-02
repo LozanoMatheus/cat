@@ -1,241 +1,167 @@
-cat    a.txt # TEST LOOP (a<-b, b<-a)
+## 1. a & b
 
-a.txt
-
-    a <- b
-
-    @include <-=b.txt=
-
-a.end
-
-中文。
-
-
-cat    c.txt # TEST MULTIPLE INCLUSIONS
-
-c.txt
-
-    c <- da
-
-    @include <-=d/da.txt=
-
-c.end
-
-
-cat    f.txt # TEST EXPAND/NOT
-
-f.txt
-
-    f <- a (expand)
-
-    @include <-=a.txt=
-
-    f <- a (not expand)
+### a.txt
 
     %include <-=a.txt=
 
-f.end
+### b.txt:
 
+    %include <-=b.txt=
 
-cat    g.txt # SELF INCLUSION
+### java -jar cat.jar a.txt
 
-g.txt
+    %include <-=a.jar.md=
 
-    g <- g (expand, won't work)
+### java -jar cat.jar b.txt
 
-    @include <-=g.txt=
+    %include <-=b.jar.md=
 
-    g <- g (not expand)
+---
+
+## 2. c & d/da & a & e
+
+### c.txt:
+
+    %include <-=c.txt=
+
+### d/da.txt:
+
+    %include <-=d/da.txt=
+
+### e.txt:
+
+    %include <-=e.txt=
+
+### java -jar cat.jar c.txt
+
+    %include <-=c.jar.md=
+
+---
+
+## 3. f
+
+(expand or not.)
+
+### f.txt:
+
+    %include <-=f.txt=
+
+### java -jar cat.jar f.txt
+
+    %include <-=f.jar.md=
+
+---
+
+## 4. g
+
+(self expand not working.)
+
+### g.txt:
 
     %include <-=g.txt=
 
-g.end
+### java -jar cat.jar g.txt
 
-
-cat    h.txt # NO SUCH FILE
-
-h.txt
-
-    h <- y (no such file to %)
-
-    @include <-=y.txt=
-
-    h <- z (no such file to @)
-
-    %include <-=z.txt=
-
-h.end
-
-
-cat    i.txt # VERBATIM
-
-i.txt
-
-    reveal with @@include/%%include (verbatim)
-
-    a.txt
-
-        a <- b
-
-        @include <-=b.txt=
-
-    a.end
-
-    中文。
-
-    a.txt
-
-        a <- b
-
-        @include <-=b.txt=
-
-    a.end
-
-    中文。
-
-i.end
-
-
-cat    j.txt # ABSOLUTE PATH
-
-j.txt
-
-    C:\Windows\System32\winrm.cmd (works on windows)
-
-    %include <-=C:\Windows\System32\winrm.cmd=
-
-    C:/Windows/System32/winrm.cmd (works on windows)
-
-    %include <-=C:/Windows/System32/winrm.cmd=
-
-    C:\\Windows\\System32\\winrm.cmd (works on windows)
-
-    %include <-=C:\\Windows\\System32\\winrm.cmd=
-
-    %include <-=/etc/issue=
-
-j.end
-
-
-cat    m.txt # YAML HEADER
+    %include <-=g.jar.md=
 
 ---
-title: this is m.txt
-author: tzx
+
+## 5. h
+
+(no such file.)
+
+### h.txt:
+
+    %include <-=h.txt=
+
+### java -jar cat.jar h.txt
+
+    %include <-=h.jar.md=
+
 ---
 
-m.txt
+## 6. i
 
-    comment out:
+(comment out inclusion.)
 
-    m.txt
+### i.txt:
 
-        comment out:
+    %include <-=i.txt=
 
-        %%include </=m.txt=
-        @@include </=m.txt=
+### java -jar cat.jar i.txt
 
-        shave
+    %include <-=i.jar.md=
 
-        %include </=m.txt=
+---
 
-        not shave
+## 7. j
 
-        %include <-=m.txt=
+(path: relative or absolute.)
 
-        recursive a.txt
+### j.txt:
 
-        @include <-=a.txt=
+    %include <-=j.txt=
 
-        preserve a.txt
+### java -jar cat.jar j.txt
 
-        %include <-=a.txt=
+    %include <-=j.jar.md=
 
-    m.end
-    m.txt
+---
 
-        comment out:
+## 8. k1
 
-        %%include </=m.txt=
-        @@include </=m.txt=
+(shave out yaml block.)
 
-        shave
+### k1.txt:
 
-        %include </=m.txt=
+    %include <-=k1.txt=
 
-        not shave
+### l1.txt:
 
-        %include <-=m.txt=
+    %include <-=l1.txt=
 
-        recursive a.txt
+### java -jar cat.jar k1.txt
 
-        @include <-=a.txt=
+    %include <-=k1.jar.md=
 
-        preserve a.txt
+## 9. k2
 
-        %include <-=a.txt=
+(shave out yaml block.)
 
-    m.end
+### k2.txt:
 
-    shave
+    %include <-=k2.txt=
 
-    %include </=m.txt=
+### l2.txt:
 
-    not shave
+    %include <-=l2.txt=
+
+### java -jar cat.jar k2.txt
+
+    %include <-=k2.jar.md=
+
+---
+
+## 10. m
+
+(shave out yaml block.)
+
+### m.txt:
 
     %include <-=m.txt=
 
-    recursive a.txt
+### java -jar cat.jar m.txt
 
-    @include <-=a.txt=
+    %include <-=m.jar.md=
 
-    preserve a.txt
+---
 
-    %include <-=a.txt=
+## 11. k
 
-m.end
+### k.txt:
 
+    %include <-=k.txt=
 
-cat    k1.txt # YAML HEADER
+### java -jar cat.jar k.txt
 
-k1.txt
-
-    without yaml block (recursive)
-
-    @include </=l1.txt=
-
-k1.end
-
-
-cat    k2.txt # YAML HEADER
-
-k2.txt
-
-    with yaml block (recursive)
-
-    @include <-=l2.txt=
-
-k2.end
-
-
-cat    k.txt # YAML HEADER
-
-k.txt
-
-    without yaml block (recursive)
-
-    @include </=l.txt=
-
-    with yaml block (recursive)
-
-    @include <-=l.txt=
-
-    without yaml block (preserve)
-
-    %include </=l.txt=
-
-    with yaml block (preserve)
-
-    %include <-=l.txt=
-
-k.end
+    %include <-=k.jar.md=

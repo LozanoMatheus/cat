@@ -3,9 +3,9 @@
 txt := $(wildcard *.txt)
 md  := $(txt:%.txt=%.md)
 
-all: target/cat.jar test $(md) html
+all: target/cat.jar test $(md) publish
 clean:
-	rm -rf target/ $(md) html
+	rm -rf target/ $(md) publish
 	make -C test -f build.mk clean
 gh: all
 	git add -A; git commit -m "`date`"; git push;
@@ -35,7 +35,7 @@ test5: target/cat.jar
 	@echo Test reveal.
 	java -jar $< test/i.txt
 
-html: md2html.jar
-	java -jar $< -o html -r res -c config.yml
+publish: md2html.jar
+	java -jar $< -o publish -r res -c config.yml
 md2html.jar:
 	cp ../md2html/target/md2html.jar $@ || wget http://whudoc.qiniudn.com/java/md2html/md2html.jar

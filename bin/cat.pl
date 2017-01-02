@@ -89,14 +89,14 @@ sub unfoldLines {
         my $dn = dirname($fn);              # dn: dirname
         while(<$fh>) {
             s/\r?\n?$//;
-            if (/^(\s*)\@include <([-\/])=([^=]*)=$/) {
-                my $p = $1; my $s = $2; my $f = $3;
+            if (/^(\s*)([\@\%])include <([-\/])=([^=]*)=$/) {
+                my $p = $1; my $m = $2; my $s = $3; my $f = $4;
                 $f = $dn."/".$f unless $f =~ /^.:/ or $f =~ /^\//;
-                &unfoldLines($pd.$p, $f, $s eq '/' ? 1 : 0, @_);
-            } elsif (/^(\s*)\%include <([-\/])=([^=]*)=$/) {
-                my $p = $1; my $s = $2; my $f = $3;
-                $f = $dn."/".$f unless $f =~ /^.:/ or $f =~ /^\//;
-                &preserveLines($pd.$p, $f, $s eq '/' ? 1 : 0);
+                if ($m eq '%') {
+                    &preserveLines  ($pd.$p, $f, $s eq '/' ? 1 : 0);
+                } else {
+                    &unfoldLines    ($pd.$p, $f, $s eq '/' ? 1 : 0, @_);
+                }
             } elsif (/^(?<p>\s*)(?<m>[\%\@])\2include <(?<s>[-\/])=(?<f>[^=]*)=$/) {
                 print $pd.$+{p}.$+{m}.'include <'.$+{s}.'='.$+{f}."=\n";
             } else {

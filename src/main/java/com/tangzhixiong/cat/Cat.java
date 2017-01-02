@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * Created by tzx on 2016/12/30.
  */
 public class Cat {
-    final private static Pattern p = Pattern.compile("^( *)([%@])\\2include <([-/])=([^=]*)=$");
+    final private static Pattern p = Pattern.compile("^( *)([%@])(\\2?)include <([-/])=([^=]*)=$");
 
     public static List<String> cat(String filename) {
         File file = new File(filename);
@@ -61,9 +61,7 @@ public class Cat {
         String filename = null;
         try {
             filename = file.getCanonicalPath().replace("\\", "/");
-        } catch (Exception e) {
-            return lines;
-        }
+        } catch (Exception e) { return lines; }
         if (filenames.contains(filename)) {
             List<String> moreLines = preserveLines(file, shave);
             for (String moreLine : moreLines) {
@@ -93,53 +91,44 @@ public class Cat {
             }
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                if (line.endsWith("=")) {
+                if (!line.endsWith("=")) {
+                    lines.add(padding+line);
+                } else {
                     Matcher m = p.matcher(line);
-                    if (m.find()) {
-                        String pd = m.group(1);
-                        String sv = m.group(3);
-                        String fn = m.group(4);
-                        if (!fn.toLowerCase().matches("^[a-z]:.*") && !fn.startsWith("/")) {
-                            // fn = file.getParentFile().getCanonicalPath() + File.separator + fn; // BUGGY
-                            fn = filename.substring(0, filename.lastIndexOf("/"))+"/"+fn;
-                        }
-                        switch (m.group(2)) {
-                            case "@@": case "%%":
-                                lines.add(padding+pd+m.group(2)+"include <"+sv+"="+m.group(4)+"=");
-                                break;
-                            case "@": {
-                                File f = new File(fn);
-                                if (!f.exists() || !f.isFile() || !f.canRead()) {
-                                    String err = "Error openning file: ["+m.group(4)+"].";
-                                    System.err.println(err);
-                                    lines.add(padding+pd+err);
-                                } else {
-                                    List<String> moreLines = unfoldLines("", f, sv.equals("/"), filenames);
-                                    for (String moreLine : moreLines) {
-                                        lines.add(padding+pd+moreLine);
-                                    }
-                                }
-                            } break;
-                            case "%": {
-                                File f = new File(fn);
-                                if (!f.exists() || !f.isFile() || !f.canRead()) {
-                                    String err = "Error openning file: ["+m.group(4)+"].";
-                                    System.err.println(err);
-                                    lines.add(padding+pd+err);
-                                } else {
-                                    List<String> moreLines = preserveLines(f, sv.equals("/"));
-                                    for (String moreLine : moreLines) {
-                                        lines.add(padding+pd+moreLine);
-                                    }
-                                }
-                            } break;
-                            default:
-                                System.err.println("Unknown Error");
-                        }
+                    if (!m.find()) {
+                        lines.add(padding+line);
                         continue;
                     }
+                    String pd = m.group(1);
+                    String m1 = m.group(2);
+                    String m2 = m.group(3);
+                    String sv = m.group(4);
+                    String fn = m.group(5);
+                    if (!fn.toLowerCase().matches("^[a-z]:.*") && !fn.startsWith("/")) {
+                        // fn = file.getParentFile().getCanonicalPath() + File.separator + fn; // BUGGY
+                        fn = filename.substring(0, filename.lastIndexOf("/"))+"/"+fn;
+                    }
+                    if (!m2.isEmpty()) {
+                        lines.add(padding+pd+m1+"include <"+sv+"="+m.group(5)+"=");
+                    } else {
+                        File f = new File(fn);
+                        if (!f.exists() || !f.isFile() || !f.canRead()) {
+                            String err = "Error openning file: [" + m.group(5) + "].";
+                            System.err.println(err);
+                            lines.add(padding + pd + err);
+                        } else {
+                            List<String> moreLines = null;
+                            if (m1.equals("%")) {
+                                moreLines = preserveLines(f, sv.equals("/"));
+                            } else {
+                                moreLines = unfoldLines("", f, sv.equals("/"), filenames);
+                            }
+                            for (String moreLine : moreLines) {
+                                lines.add(padding + pd + moreLine);
+                            }
+                        }
+                    }
                 }
-                lines.add(padding+line);
             }
         } catch (Exception e) {
         }
